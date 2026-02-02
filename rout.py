@@ -40,7 +40,7 @@ def handle_login():
 
         result = app.leta_anv(form_data)
         if result:
-            # Skapa sessionen här!
+            
             session['logged_in'] = True
             session['user_email'] = form_data['email']
             return redirect(url_for('index'))
