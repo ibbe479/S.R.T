@@ -4,11 +4,11 @@ import app
 RT = Flask(__name__)
 RT.secret_key = 'en_väldigt_hemlig_nyckel'
 
-@RT.route('/')
+@RT.route('/sign_up')
 def sign_in():
     return render_template('sig_up.html')
 
-@RT.route('/sign_up', methods=['POST'])
+@RT.route('/handle_sign_up', methods=['POST'])
 def handle_sign_up():
     ''' hämtar data från formuläret och skickar det till registrera_anvandare funktionen i app.py'''
     try:
@@ -26,7 +26,7 @@ def handle_sign_up():
         print("Fel vid hantering av registrering:", e)
         return "Något gick fel.", 400
 
-@RT.route('/login')
+@RT.route('/')
 def login():
     return render_template('login.html')
 

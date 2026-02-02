@@ -1,27 +1,34 @@
-<!--admin only-->
-<doctype html>
-<html lang="en">    
+<!DOCTYPE html>
+<html lang="sv">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sign Up</title>
-   
+    <title>Logga in</title>
+    <link rel="stylesheet" href="/static/style.css">
 </head>
 <body>
-    <div class="container">
-        <h2>Sign in</h2>
-        <form action="/handle_login" method="post">
+    <div class="login-container">
+        <div class="login-card">
+            <h2 id="h2_startsidan">Logga in</h2>
 
-           
-            <label for="email">Email:</label>
-            <input type="email" id="email" name="email" required>
+            <form action="/handle_login" method="post">
+                <div class="input-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" placeholder="Skriv din e-post" required>
+                </div>
 
-            <label for="password">Password:</label>
-            <input type="password" id="password" name="password" required>
-
-             <button type="submit">Sign in</button>
-
-        </form>
+                <div class="input-group">
+                    <label for="password">Lösenord</label>
+                    <input type="password" id="password" name="password" placeholder="Skriv ditt lösenord" required>
+                   
+                </div>
+                <button type="submit" class="login-button">LOGGA IN</button>
+            </form>
+            
+            <p class="signup-link">
+                Inte medlem? <a href="sign_up">Registrera dig här</a>
+            </p>
+        </div>
     </div>
 </body>
 </html>

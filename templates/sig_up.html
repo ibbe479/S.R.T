@@ -5,33 +5,53 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sign Up</title>
-   
+    <link rel="stylesheet" href="/static/style.css">
 </head>
+
 <body>
-    <div class="container">
-        <h2>Sign Up</h2>
-        <form action="/sign_up" method="post">
+    <div class="login-container">
+        <div class="login-card">
+            <h2 id="h2_startsidan">Skapa ett konto</h2>
 
-            <label for="name">Name</label>
-            <input type="text" id="name" name="name" required>
+            <form action="/sign_up" method="post">
+                <div class="input-group">
+                    <label for="name">Name</label>
+                    <input type="text" id="name" name="name" placeholder="Skriv in ditt namn" required>
+                </div>
 
-            <label for="email">Email:</label>
-            <input type="email" id="email" name="email" required>
+                <div class="input-group">
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" placeholder="Skriv din e-post" required> 
+                </div>
 
-            <label for="password">Password:</label>
-            <input type="password" id="password" name="password" required>
+                <div class="input-group">
+                    <label for="password">Password:</label>
+                    <input type="password" id="password" name="password" placeholder="Skriv ditt lösenord" required>
+                </div>
+                
 
-            <label for="role">Role</label>
-            <select id="role" name="role" required>
-                <option value="user">frorntend</option>
-                <option value="admin">Admin</option>
-                <option value="moderator">Moderator</option>
-                <option value="editor">Editor</option>
-                <option value="Backend">Backend</option>
-            </select>
-             <button type="submit">Sign Up</button>
+                <div id="dropdown_role">
+                <label class="label">
+                    <span id="välj_roll">Välj roll</span>
+                </label>
+                
+                <select name="role" id="välja_roll_meny" class="select select-bordered w-full max-w-xs" required>                    <option value="" disabled selected>Välj ett alternativ</option>
+                    <option value="user">Frontend</option>
+                    <option value="admin">Admin</option>
+                    <option value="moderator">Moderator</option>
+                    <option value="editor">Editor</option>
+                    <option value="Backend">Backend</option>
+                </select>
+                </div>
 
-        </form>
+                <button type="submit" class="login-button">Sign Up</button>
+
+                <p class="signup-link">
+                Har du redan ett konto? <a href="/">Loga in här</a>
+                </p>
+
+            </form>
+        </div>
     </div>
 </body>
 </html>
