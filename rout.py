@@ -39,13 +39,16 @@ def handle_login():
 
         result = app.leta_anv(form_data)
         if result :
-            return f"Välkommen, {result[0]['name']}! Du är inloggad."
+            return redirect(url_for('index'))
         else:
             return "Felaktig e-post eller lösenord.", 401
     except Exception as e:
         print("Fel vid hantering av inloggning:", e)
         return "Något gick fel vid inloggning.", 400
 
+@RT.route('/index')
+def index():
+    return render_template('index.html')
 
 
 
