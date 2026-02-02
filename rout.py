@@ -1,7 +1,8 @@
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, redirect, url_for, session
 import app
 
 RT = Flask(__name__)
+RT.secret_key = 'en_väldigt_hemlig_nyckel'
 
 @RT.route('/')
 def sign_in():
@@ -38,20 +39,21 @@ def handle_login():
         }
 
         result = app.leta_anv(form_data)
-        if result :
+        if result:
+            # Skapa sessionen här!
+            session['logged_in'] = True
+            session['user_email'] = form_data['email']
             return redirect(url_for('index'))
         else:
             return "Felaktig e-post eller lösenord.", 401
     except Exception as e:
-        print("Fel vid hantering av inloggning:", e)
-        return "Något gick fel vid inloggning.", 400
+        return "Något gick fel.", 400
 
 @RT.route('/index')
 def index():
+    if not session.get('logged_in'):
+        return redirect(url_for('login'))
     return render_template('index.html')
-
-
-
 
 if __name__ == '__main__':
     RT.run(debug=True)
