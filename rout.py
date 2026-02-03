@@ -75,7 +75,7 @@ def handle_admin():
         result = app.skapa_team(t_name, t_code, emails.split(","))
 
         if result:
-            return redirect(url_for('admin'))
+            return "Teamet skapades framgångsrikt", 200
         return "Kunde inte skapa teamet", 500
     except Exception as e:
         return "Något gick fel", 400

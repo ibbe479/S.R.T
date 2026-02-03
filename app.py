@@ -41,16 +41,28 @@ def är_det_admin(email):
 
 def skapa_team(t_name, t_code, emails):
     try:
-        for email in emails:
-            response = supabase.table("Users").select("*").eq("email", email).execute()
-            if response.data:
-                response3 = supabase.table("Special_Codes").insert({"team_code": t_code, "team_name": t_name}).execute()
-            return response3.data
+        # 1. SKAPA TEAMET FÖRST (EN GÅNG)
+        # Vi gör detta utanför loopen.
+        supabase.table("teams").insert({"team_name": t_name, "id": t_code}).execute()
 
-        response2 = supabase.table("Teams").insert({"team_name": t_name}).execute()
-        return response2.data
+        # 2. LOOPA IGENOM MEDLEMMARNA
+        for email in emails:
+            email = email.strip() # Tvätta bort mellanslag
+            
+            # Kolla om användaren finns
+            user_check = supabase.table("Users").select("*").eq("email", email).execute()
+            
+            if user_check.data:
+                # 3. LÄGG TILL I team_mebbers
+                # Detta körs nu för varje person i listan
+                supabase.table("team_mebbers").insert({
+                    "team_code": t_code, 
+                    "user_email": email
+                }).execute()
+
+        # 4. Returnera True när HELA loopen är klar
+        return True
         
     except Exception as e:
         print("Fel i skapa_team:", e)
         return None
-    
