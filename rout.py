@@ -57,11 +57,32 @@ def index():
 
 @RT.route('/admin')
 def admin_tool():
+    return render_template('admin.html')
+
+@RT.route('/handle_admin', methods=['POST'])
+def handle_admin():
     if not session.get('logged_in'):
         return redirect(url_for('login'))
+    
     if not app.är_det_admin(session['user_email']):
-        return "Åtkomst nekad. Endast administratörer kan komma åt denna sida.", 403
-    return render_template('admin.html')
+        return "Åtkomst nekad.", 403
+
+    try:
+        # Hämta värden från namnen i din HTML (<input name="...">)
+        t_name = request.form.get('namn_team')
+        t_code = request.form.get('spec_kod')
+        emails = request.form.get('vem_i_teamet') 
+        
+        # Anropa funktionen
+        result = app.skapa_team(t_name, t_code, emails)
+
+        if result:
+            return redirect(url_for('admin_tool'))
+        return "Kunde inte skapa teamet", 500
+            
+    except Exception as e:
+        print("Fel:", e)
+        return "Något gick fel", 400
 
 if __name__ == '__main__':
     RT.run(debug=True)

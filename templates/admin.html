@@ -42,10 +42,13 @@
         <div class="login-card">
             <h2 id="h2_startsidan">Skapa ett nytt team</h2>
 
-            <form action="/" method="post">
+            <form action="/handle_admin" method="post">
                 <div class="input-group">
                     <label for="namn_team">Vad heter det nya teamet</label>
                     <input type="namn_team" id="namn_team" name="namn_team" placeholder="vad ska teamet kallas för" required>
+
+                    <label for="spec_kod">Skriv in en kod som tillhör det teamt endast</label>
+                    <input type="spec_kod" id="spec_kod" name="spec_kod" placeholder="Skriv in koden här" required>
 
                     <label for="vem_i_teamet">Vem ska delta i det teamet</label>
                     <input type="vem_i_teamet" id="vem_i_teamet" name="vem_i_teamet" placeholder="skriv in eposten på den som ska vara med" required>
