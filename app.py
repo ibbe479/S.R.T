@@ -27,3 +27,14 @@ def leta_anv(login_data):
     except Exception as e:
         print("Fel vid inloggning:", e)
         return None
+    
+def är_det_admin(email):
+    """funktionen kontrollerar om användaren är admin."""
+    try:
+        response = supabase.table("Users").select("role").eq("email", email).execute()
+        if response.data and response.data[0]["role"] == "admin":
+            return True
+        return False
+    except Exception as e:
+        print("Fel vid kontroll av admin:", e)
+        return False

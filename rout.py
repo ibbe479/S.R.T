@@ -55,5 +55,13 @@ def index():
         return redirect(url_for('login'))
     return render_template('index.html')
 
+@RT.route('/admin')
+def admin_tool():
+    if not session.get('logged_in'):
+        return redirect(url_for('login'))
+    if not app.är_det_admin(session['user_email']):
+        return "Åtkomst nekad. Endast administratörer kan komma åt denna sida.", 403
+    return render_template('admin.html')
+
 if __name__ == '__main__':
     RT.run(debug=True)
