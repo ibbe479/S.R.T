@@ -68,20 +68,16 @@ def handle_admin():
         return "Åtkomst nekad.", 403
 
     try:
-        # Hämta värden från namnen i din HTML (<input name="...">)
-        t_name = request.form.get('namn_team')
-        t_code = request.form.get('spec_kod')
+        t_name = request.form.get('namn_team')   
+        t_code = request.form.get('spec_kod')    
         emails = request.form.get('vem_i_teamet') 
         
-        # Anropa funktionen
-        result = app.skapa_team(t_name, t_code, emails)
+        result = app.skapa_team(t_name, t_code, emails.split(","))
 
         if result:
-            return redirect(url_for('admin_tool'))
+            return redirect(url_for('admin'))
         return "Kunde inte skapa teamet", 500
-            
     except Exception as e:
-        print("Fel:", e)
         return "Något gick fel", 400
 
 if __name__ == '__main__':

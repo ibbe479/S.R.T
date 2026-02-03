@@ -39,38 +39,17 @@ def är_det_admin(email):
         print("Fel vid kontroll av admin:", e)
         return False
 
-def skapa_team(team_name, team_code, email_input):
+def skapa_team(t_name, t_code, emails):
     try:
-        # 1. Skapa teamet i 'teams'-tabellen
-        # Vi sparar både namnet och den manuella koden
-        team_resp = supabase.table("teams").insert({
-            "team_name": team_name,
-            "team_code": team_code  # Se till att denna kolumn finns i Supabase!
-        }).execute()
+        for email in emails:
+            response = supabase.table("Users").select("*").eq("email", email).execute()
+            if response.data:
+                response3 = supabase.table("Special_Codes").insert({"team_code": t_code, "team_name": t_name}).execute()
+            return response3.data
+
+        response2 = supabase.table("Teams").insert({"team_name": t_name}).execute()
+        return response2.data
         
-        if not team_resp.data:
-            return None
-            
-        new_team_id = team_resp.data[0]["id"] # Databasens interna UUID
-
-        # 2. Dela upp e-poststrängen till en lista och rensa mellanslag
-        email_lista = [e.strip() for e in email_input.split(',')]
-
-        # 3. Koppla varje användare
-        for mail in email_lista:
-            # Hämta användarens UUID från 'Users'
-            user_resp = supabase.table("Users").select("id").eq("email", mail).execute()
-            
-            if user_resp.data:
-                u_id = user_resp.data[0]["id"]
-                
-                # Skapa raden i kopplingstabellen
-                supabase.table("team_mebbers").insert({
-                    "team_id": new_team_id,
-                    "user_id": u_id
-                }).execute()
-
-        return team_resp.data
     except Exception as e:
         print("Fel i skapa_team:", e)
         return None
