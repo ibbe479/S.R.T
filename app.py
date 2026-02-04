@@ -39,7 +39,8 @@ def är_det_admin(email):
         print("Fel vid kontroll av admin:", e)
         return False
 
-def skapa_team(t_name, t_code, emails):
+def skapa_team(t_code, emails):
+    """funktionen skapar ett team och lägger till medlemmar i Supabase."""
     try:
         clean_emails = [e.strip() for e in emails]
 
@@ -49,10 +50,12 @@ def skapa_team(t_name, t_code, emails):
                 return f"E-postadressen {email} finns inte i systemet."
 
         code=supabase.table("teams").select("id").eq("id", t_code).execute()
+
         if code.data:
-            return f"Teamkoden {t_code} är redan upptagen. Vänligen välj en annan."
+            return f"Teamnamnet {t_code} är redan upptagen. Vänligen välj en annan."
         
-        supabase.table("teams").insert({"team_name": t_name, "id": t_code}).execute()
+        supabase.table("teams").insert({"id": t_code}).execute()
+        
 
         for email in clean_emails:
             supabase.table("team_mebbers").insert({
@@ -65,3 +68,21 @@ def skapa_team(t_name, t_code, emails):
     except Exception as e:
         print("Fel i skapa_team:", e)
         return "Ett databasfel uppstod, försök igen senare."
+    
+def skapa_nyhet(title, innehåll,till):
+    """funktionen lägger upp en nyhet i Supabase."""
+    try:
+        finns_teamet = supabase.table("teams").select("id").eq("id", till).execute()
+        if not finns_teamet.data:
+            return f"Teamet {till} finns inte. Vänligen kontrollera team namnet."
+        
+        supabase.table("nyheter").insert({
+            "titel": title,
+            "innehåll": innehåll
+            ,"till_vem": till
+        }).execute()
+        return True
+    except Exception as e:
+        print("Fel vid skapande av nyhet:", e)
+        return False
+ 

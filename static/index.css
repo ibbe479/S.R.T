@@ -1,0 +1,17 @@
+#main_index{
+    margin-top: 5%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5%;
+}
+
+.card{
+    box-shadow: 0 8px 8px 0 rgba(0, 0, 0, 0.2);
+    background-color: rgb(197, 248, 248);
+    width: 20%; 
+    height: 200px; 
+    overflow-y: auto; 
+    scroll-behavior:inherit;
+    border-radius: 10px 20px 10px 20px; 
+}

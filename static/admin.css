@@ -1,0 +1,70 @@
+main {
+    display: flex;
+    justify-content: center; 
+    align-items: flex-start; 
+    gap: 150px;               
+    padding: 40px;
+    flex-wrap: wrap;         /*använd när jag ska fixa till mobilvyn*/
+}
+
+.t-card, .nyheter_kortet {
+    padding: 30px;
+    border-radius: 10px 20px 10px 20px; 
+    box-shadow: 0 8px 8px 0 rgba(0, 0, 0, 0.2);
+    background-color: rgb(197, 248, 248);
+    width: 400px;
+    
+
+}
+.t-card h2 {
+    margin-bottom: 13%;
+}
+h2 {
+    font-size: 1.4rem;
+    margin-bottom: 20px;
+    color: #333;
+    text-align: center;
+}
+
+.input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+label {
+    font-weight: bold;
+    font-size: 0.9rem;
+    color: #555;
+}
+
+input {
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    width: 100%;
+}
+
+
+.login-button {
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 6px;
+    background: linear-gradient(to right, #00c6ff, #0072ff);
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+
+.alert {
+    width: 80%;
+    margin: 20px auto 0;
+    color: red;
+    text-align: center;
+    padding: 0;
+    border-radius: 0;
+}
