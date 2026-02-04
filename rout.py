@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for, session
+from flask import Flask, render_template, request, redirect, url_for, session, flash
 import app
 
 RT = Flask(__name__)
@@ -55,5 +55,55 @@ def index():
         return redirect(url_for('login'))
     return render_template('index.html')
 
+@RT.route('/admin')
+def admin_tool():
+    return render_template('admin.html')
+
+@RT.route('/handle_admin', methods=['POST'])
+def handle_admin():
+    if not session.get('logged_in'):
+        return redirect(url_for('login'))
+    
+    if not app.är_det_admin(session['user_email']):
+        return "Åtkomst nekad.", 403
+
+    try:
+        t_code = request.form.get('spec_kod')    
+        emails = request.form.get('vem_i_teamet') 
+        
+        result = app.skapa_team( t_code, emails.split(","))
+
+        if result is True:
+            flash("Teamet skapades och medlemmarna lades till.")
+        else:
+            flash(result, 'error')
+        return redirect(url_for('admin_tool'))
+    except Exception as e:
+        return "Något gick fel", 400
+    
+
+@RT.route('/nyheter', methods=['post'])
+def nyheter():
+    if not session.get('logged_in'):
+        return redirect(url_for('login'))
+    
+    if not app.är_det_admin(session['user_email']):
+        return "Åtkomst nekad.", 403
+    
+    try:
+        title = request.form.get('titel')
+        innehåll = request.form.get('message')
+        till=request.form.get('till_vem')
+
+        text = app.skapa_nyhet(title, innehåll, till)
+        if text is True:
+            flash("Nyheten har skapats och publicerats.", 'success')
+        else:
+            flash(text, 'error')
+        return redirect(url_for('admin_tool'))
+
+    except Exception as e:
+        return "Något gick fel", 400
+    
 if __name__ == '__main__':
     RT.run(debug=True)

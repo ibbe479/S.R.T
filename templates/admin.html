@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link rel="stylesheet" href="/static/admin.css">
+    <link rel="stylesheet" href="/static/style.css">
+    <title>Start sida</title>
+
+
+<body>
+  <header>
+    <nav class="navbar navbar-expand-lg "id="header">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="index">S.R.T</a>
+
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        
+        <div class="collapse navbar-collapse" id="navbarText">
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="#">Home</a>
+            </li>
+
+            <li class="nav-item">
+              <a class="nav-link" href="#">Features</a>
+            </li>
+
+            <li class="nav-item">
+              <a class="nav-link" href="#">Pricing</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <div class="alert">
+            {% with messages = get_flashed_messages(with_categories=true) %}
+              {% if messages %}
+                {% for category, message in messages %}
+                  <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+                    {{ message }}
+                  </div>
+                {% endfor %}
+              {% endif %}
+            {% endwith %}
+      </div>
+
+    <div id="cont_1">
+      <div class="skapa_t_container">
+          <div class="t-card">
+              <h2>Skapa ett nytt team </h2>
+
+              <form action="/handle_admin" method="post">
+                  <div class="input-group">
+                      <label for="spec_kod">Vad ska teamt heta</label>
+                      <input type="text" id="spec_kod" name="spec_kod" placeholder="Skriv in namnet här" required>
+
+                      <label for="vem_i_teamet">Vem ska delta i det teamet</label>
+                      <input type="text" id="vem_i_teamet" name="vem_i_teamet" placeholder="skriv in eposten på den som ska vara med" required>
+                  </div>
+                  
+                  <button type="submit" class="login-button">Skapa team</button>
+              </form>
+          </div>
+      </div>
+    </div>
+
+    <div id="cont_2">
+        <div class="nyheter-container">
+          <div class="nyheter_kortet">
+              <h2>Skriv ett medlenade till alla anstälda</h2>
+
+              <form action="/nyheter" method="post">
+                  <div class="input-group">
+                      <label for="titel">Titel</label>
+                      <input type="text" id="titel" name="titel" placeholder="Skriv titeln" required>
+
+                      <label for="message">Meddelande</label>
+                      <input type="text" id="message" name="message" placeholder="Skriv meddelandet här" required>
+
+                      <label for="till_vem">Till vilket team vill du skicka medelandet</label>
+                      <input type="text" id="till_vem" name="till_vem" placeholder="Skriv in team namnet här" required>
+                      
+                      <!--kan vara ngt extra att lägga till i framtiden 
+                      <label for="hur_länge">Hur länge ska medelandet visas</label>
+                      <input type="text" id="hur_länge" name="hur_länge" placeholder="Skriv in antal dagar här" required>
+                      -->
+
+                  
+                    </div>
+                <button type="submit" class="login-button">Publicera nyhet</button>
+              </form>
+          </div>
+        </div>
+        
+       
+    
+
+    </div>
+
+  </main>
+
+
+</body>
+    
+</html>
