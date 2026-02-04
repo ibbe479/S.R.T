@@ -38,6 +38,18 @@
   </header>
 
   <main>
+    <div class="container mt-3">
+          {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+              {% for category, message in messages %}
+                <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+                  {{ message }}
+                </div>
+              {% endfor %}
+            {% endif %}
+          {% endwith %}
+      </div>
+
      <div class="login-container">
         <div class="login-card">
             <h2 id="h2_startsidan">Skapa ett nytt team</h2>

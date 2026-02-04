@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for, session
+from flask import Flask, render_template, request, redirect, url_for, session, flash
 import app
 
 RT = Flask(__name__)
@@ -74,9 +74,11 @@ def handle_admin():
         
         result = app.skapa_team(t_name, t_code, emails.split(","))
 
-        if result:
-            return "Teamet skapades framgångsrikt", 200
-        return "Kunde inte skapa teamet", 500
+        if result is True:
+            flash("Teamet skapades och medlemmarna lades till.")
+        else:
+            flash(result, 'error')
+        return redirect(url_for('admin_tool'))
     except Exception as e:
         return "Något gick fel", 400
 
