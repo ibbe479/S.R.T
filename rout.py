@@ -1,8 +1,27 @@
 from flask import Flask, render_template, request, redirect, url_for, session, flash
 import app
+from functools import wraps
 
 RT = Flask(__name__)
 RT.secret_key = 'en_väldigt_hemlig_nyckel'
+
+def login_required(f):
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        if not session.get('logged_in'):
+            return redirect(url_for('login'))
+        return f(*args, **kwargs)
+    return decorated_function
+
+def admin_required(f):
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        if not session.get('logged_in'):
+            return redirect(url_for('login'))
+        if not app.är_det_admin(session.get('user_email')): 
+            return "Åtkomst nekad.", 403
+        return f(*args, **kwargs)
+    return decorated_function
 
 @RT.route('/sign_up')
 def sign_in():
@@ -49,24 +68,27 @@ def handle_login():
     except Exception as e:
         return "Något gick fel.", 400
 
+@RT.route('/logout')
+def logout():
+    session.clear() 
+    return redirect(url_for('login'))
+
 @RT.route('/index')
+@login_required
 def index():
-    if not session.get('logged_in'):
-        return redirect(url_for('login'))
     return render_template('index.html')
 
 @RT.route('/admin')
+@login_required
+@admin_required
 def admin_tool():
     return render_template('admin.html')
 
 @RT.route('/handle_admin', methods=['POST'])
+@login_required
+@admin_required
 def handle_admin():
-    if not session.get('logged_in'):
-        return redirect(url_for('login'))
-    
-    if not app.är_det_admin(session['user_email']):
-        return "Åtkomst nekad.", 403
-
+   
     try:
         t_code = request.form.get('spec_kod')    
         emails = request.form.get('vem_i_teamet') 
