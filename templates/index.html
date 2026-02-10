@@ -44,7 +44,16 @@
     <div class="card" >
       <div class="card-body">
       <h5 class="card-title">News</h5>
-      <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card’s content.</p>
+        {% if nyheter %}
+            {% for nyhet in nyheter %}
+              <div class="news-item" style="border-bottom: 1px solid #eee; margin-bottom: 10px; padding-bottom: 5px;">
+                <h6><strong>{{ nyhet.titel }}</strong> <small class="text-muted">({{ nyhet.till_vem }})</small></h6>
+                <p class="card-text">{{ nyhet.innehåll }}</p>
+              </div>
+            {% endfor %}
+          {% else %}
+            <p class="card-text">Inga nyheter för dina team just nu.</p>
+        {% endif %}
       </div>
     </div>
 

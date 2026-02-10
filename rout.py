@@ -76,6 +76,8 @@ def logout():
 @RT.route('/index')
 @login_required
 def index():
+    user_email = session.get('user_email')
+    nyheter = hämta_nyheter_för_användare(user_email)
     return render_template('index.html')
 
 @RT.route('/admin')
@@ -105,13 +107,9 @@ def handle_admin():
     
 
 @RT.route('/nyheter', methods=['post'])
+@login_required
+@admin_required
 def nyheter():
-    if not session.get('logged_in'):
-        return redirect(url_for('login'))
-    
-    if not app.är_det_admin(session['user_email']):
-        return "Åtkomst nekad.", 403
-    
     try:
         title = request.form.get('titel')
         innehåll = request.form.get('message')
