@@ -46,6 +46,10 @@ def handle_sign_up():
         return "Något gick fel.", 400
 
 @RT.route('/')
+def home():
+    return render_template('start_sida.html')
+
+@RT.route('/login')
 def login():
     return render_template('login.html')
 
@@ -77,8 +81,10 @@ def logout():
 @login_required
 def index():
     user_email = session.get('user_email')
-    nyheter = hämta_nyheter_för_användare(user_email)
-    return render_template('index.html')
+
+    nyheter = app.hämta_nyheter_för_användare(user_email) 
+
+    return render_template('index.html', nyheter=nyheter)
 
 @RT.route('/admin')
 @login_required

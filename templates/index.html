@@ -47,7 +47,7 @@
         {% if nyheter %}
             {% for nyhet in nyheter %}
               <div class="news-item" style="border-bottom: 1px solid #eee; margin-bottom: 10px; padding-bottom: 5px;">
-                <h6><strong>{{ nyhet.titel }}</strong> <small class="text-muted">({{ nyhet.till_vem }})</small></h6>
+                <h6><strong>{{ nyhet.titel }}</strong></h6>
                 <p class="card-text">{{ nyhet.innehåll }}</p>
               </div>
             {% endfor %}
