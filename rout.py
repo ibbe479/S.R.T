@@ -2,6 +2,11 @@ from flask import Flask, render_template, request, redirect, url_for, session, f
 import app
 from functools import wraps
 
+#fixa startsidan 
+#fixa så bara admin kan se admin tools
+#fixa så man kan se vilka teams man är inne i 
+# fixa todo lista en egen sida 
+
 RT = Flask(__name__)
 RT.secret_key = 'en_väldigt_hemlig_nyckel'
 
@@ -66,6 +71,7 @@ def handle_login():
             
             session['logged_in'] = True
             session['user_email'] = form_data['email']
+            session['is_admin'] = app.är_det_admin(form_data['email'])
             return redirect(url_for('index'))
         else:
             return "Felaktig e-post eller lösenord.", 401
@@ -75,7 +81,7 @@ def handle_login():
 @RT.route('/logout')
 def logout():
     session.clear() 
-    return redirect(url_for('login'))
+    return redirect(url_for('home'))
 
 @RT.route('/index')
 @login_required
