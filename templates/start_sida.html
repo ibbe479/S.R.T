@@ -1,18 +1,17 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="sv">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
     <link rel="stylesheet" href="/static/style.css">
-    <link rel="stylesheet" href="/static/index.css">
     <title>Start sida</title>
     <link rel="stylesheet" href="/static/Start_sida.css">
 
 </head>
 
 <body>
-     <header>
+  <header>
     <nav class="navbar navbar-expand-lg "id="header">
       <div class="container-fluid">
         <a class="navbar-brand" href="/">STR</a>
@@ -23,10 +22,7 @@
         
         <div class="collapse navbar-collapse" id="navbarText">
           <ul class="navbar-nav">
-            <li class="nav-item">
-              <a class="nav-link" href="#">Features</a>
-            </li>
-
+           
             <li class="nav-item">
               {% if session.get('logged_in') %}
                 <a class="nav-link" href="/logout">LOGGA UT</a>
@@ -47,10 +43,34 @@
   </aside>
 
   <main>
-        <p>Välkommen till SRT, din smarta lösning för att hantera och organisera dina team på distans. Med SRT kan du enkelt skapa, administrera och samarbeta med dina teammedlemmar, oavsett var de befinner sig. Vår plattform erbjuder en rad kraftfulla verktyg och funktioner som gör det enkelt att hålla alla i ditt team uppdaterade och engagerade.</p>
+    <div class="parent">
+      <div class="div1"> 
+        <p>
+          Välkommen till SRT, din smarta lösning för att hantera och organisera dina team på distans.
+        </p>
+        
+        <p>
+          SRT kan du enkelt skapa, administrera och samarbeta med dina teammedlemmar, oavsett var de befinner sig.
+        </p>
 
-    <img src="static/bild_1.jpg" alt="">
+        <p>
+          Vår plattform erbjuder en rad kraftfulla verktyg och funktioner som gör det enkelt att hålla alla i ditt team 
+          uppdaterade och engagerade.
+        </p>
+      </div>
+
+      <div class="div2">
+          <img src="static/bild_1.jpg" alt="">
+      </div>
+
+    </div>
   </main>
+
+  <section>
+    <h2>
+      Varför välja SRT?
+    </h2>
+  </section>
     
     
 </body>

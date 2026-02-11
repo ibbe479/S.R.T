@@ -4,10 +4,37 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Logga in</title>
-    <link rel="stylesheet" href="/static/style.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
     <link rel="stylesheet" href="/static/loga_in.css">
+    <link rel="stylesheet" href="/static/style.css">
 </head>
 <body>
+     <header>
+    <nav class="navbar navbar-expand-lg "id="header">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="/">STR</a>
+
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        
+        <div class="collapse navbar-collapse" id="navbarText">
+          <ul class="navbar-nav">
+           
+            <li class="nav-item">
+              {% if session.get('logged_in') %}
+                <a class="nav-link" href="/logout">LOGGA UT</a>
+              {% else %}
+                <a class="nav-link" href="/login">LOGGA IN</a>
+              {% endif %}
+            </li>
+          </ul>
+          
+        </div>
+      </div>
+    </nav>
+  </header>
+
     <div class="login-container">
         <div class="login-card">
             <h2 id="h2_startsidan">Logga in</h2>
