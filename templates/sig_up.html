@@ -1,40 +1,74 @@
 <!--admin only-->
-<doctype html>
-<html lang="en">    
+<!doctype html>
+<html lang="sv">    
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sign Up</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
     <link rel="stylesheet" href="/static/style.css">
     <link rel="stylesheet" href="/static/loga_in.css">
+    <link rel="stylesheet" href="/static/style.css">
+
 </head>
 
 <body>
+     <header>
+    <nav class="navbar navbar-expand-lg "id="header">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="/">STR</a>
+
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        
+        <div class="collapse navbar-collapse" id="navbarText">
+          <ul class="navbar-nav">
+           
+            <li class="nav-item">
+              {% if session.get('logged_in') %}
+                <a class="nav-link" href="/logout">LOGGA UT</a>
+              {% else %}
+                <a class="nav-link" href="/login">LOGGA IN</a>
+              {% endif %}
+            </li>
+          </ul>
+          
+        </div>
+      </div>
+    </nav>
+  </header>
+
     <div class="login-container">
         <div class="login-card">
             <h2 id="h2_startsidan">Skapa ett konto</h2>
 
             <form action="/handle_sign_up" method="post">
-                <div class="input-group">
-                    <label for="name">Name</label>
-                    <input type="text" id="name" name="name" placeholder="Skriv in ditt namn" required>
+                <!-- From Uiverse.io by dovatgabriel --> 
+                <div class="group">
+                    <input required="" type="name" name="name" class="input">
+                    <span class="highlight"></span>
+                    <span class="bar"></span>
+                    <label>Namn</label>
                 </div>
 
-                <div class="input-group">
-                    <label for="email">Email:</label>
-                    <input type="email" id="email" name="email" placeholder="Skriv din e-post" required> 
+                <div class="group">
+                    <input required="" type="email" name="email" class="input">
+                    <span class="highlight"></span>
+                    <span class="bar"></span>
+                    <label>Email</label>
                 </div>
 
-                <div class="input-group">
-                    <label for="password">Password:</label>
-                    <input type="password" id="password" name="password" placeholder="Skriv ditt lösenord" required>
+                <div class="group">
+                    <input required="" type="password" name="password" class="input">
+                    <span class="highlight"></span>
+                    <span class="bar"></span>
+                    <label>Lösenord</label>
                 </div>
                 
 
                 <div id="dropdown_role">
-                <label class="label">
-                    <span id="välj_roll">Välj roll</span>
-                </label>
+                
                 
                 <select name="role" id="välja_roll_meny" class="select select-bordered w-full max-w-xs" required>                   
                     <option value="" disabled selected>Välj ett alternativ</option>
@@ -49,7 +83,7 @@
                 <button type="submit" class="login-button">Sign Up</button>
 
                 <p class="signup-link">
-                Har du redan ett konto? <a href="/">Loga in här</a>
+                Har du redan ett konto? <a href="/login">Loga in här</a>
                 </p>
 
             </form>
