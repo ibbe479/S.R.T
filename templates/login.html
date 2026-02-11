@@ -13,16 +13,21 @@
             <h2 id="h2_startsidan">Logga in</h2>
 
             <form action="/handle_login" method="post">
-                <div class="input-group">
-                    <label for="email">Email</label>
-                    <input type="email" id="email" name="email" placeholder="Skriv din e-post" required>
+                <div class="group">
+                    <input required="" type="email" name="email" class="input">
+                    <span class="highlight"></span>
+                    <span class="bar"></span>
+                    <label>Email</label>
                 </div>
 
-                <div class="input-group">
-                    <label for="password">Lösenord</label>
-                    <input type="password" id="password" name="password" placeholder="Skriv ditt lösenord" required>
-                   
+                        
+                <div class="group">
+                    <input required="" type="password" name="password" class="input">
+                    <span class="highlight"></span>
+                    <span class="bar"></span>
+                    <label>Lösenord</label>
                 </div>
+
                 <button type="submit" class="login-button">LOGGA IN</button>
             </form>
             

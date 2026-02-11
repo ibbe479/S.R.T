@@ -15,26 +15,31 @@
             <h2 id="h2_startsidan">Skapa ett konto</h2>
 
             <form action="/handle_sign_up" method="post">
-                <div class="input-group">
-                    <label for="name">Name</label>
-                    <input type="text" id="name" name="name" placeholder="Skriv in ditt namn" required>
+                <!-- From Uiverse.io by dovatgabriel --> 
+                <div class="group">
+                    <input required="" type="name" name="name" class="input">
+                    <span class="highlight"></span>
+                    <span class="bar"></span>
+                    <label>Namn</label>
                 </div>
 
-                <div class="input-group">
-                    <label for="email">Email:</label>
-                    <input type="email" id="email" name="email" placeholder="Skriv din e-post" required> 
+                <div class="group">
+                    <input required="" type="email" name="email" class="input">
+                    <span class="highlight"></span>
+                    <span class="bar"></span>
+                    <label>Email</label>
                 </div>
 
-                <div class="input-group">
-                    <label for="password">Password:</label>
-                    <input type="password" id="password" name="password" placeholder="Skriv ditt lösenord" required>
+                <div class="group">
+                    <input required="" type="password" name="password" class="input">
+                    <span class="highlight"></span>
+                    <span class="bar"></span>
+                    <label>Lösenord</label>
                 </div>
                 
 
                 <div id="dropdown_role">
-                <label class="label">
-                    <span id="välj_roll">Välj roll</span>
-                </label>
+                
                 
                 <select name="role" id="välja_roll_meny" class="select select-bordered w-full max-w-xs" required>                   
                     <option value="" disabled selected>Välj ett alternativ</option>

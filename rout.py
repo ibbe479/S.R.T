@@ -3,7 +3,6 @@ import app
 from functools import wraps
 
 #fixa startsidan 
-#fixa så bara admin kan se admin tools
 #fixa så man kan se vilka teams man är inne i 
 # fixa todo lista en egen sida 
 
