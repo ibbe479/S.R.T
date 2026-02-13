@@ -4,8 +4,19 @@ from functools import wraps
 
 #fixa startsidan 
 #fixa så man kan se vilka teams man är inne i 
-# fixa todo lista en egen sida 
-#gör så att man kan vlja team istället för att skriva in email
+#fixa todo lista en egen sida 
+#dixa så den man kan välja temms i admin sidan blir bättre 
+#fixa flash meddelanden i alla sidor
+#fixa om man är inlogad och inne i start sidan att man kan se den valiga hedern och inte den för inloggning och registrering
+#istället för notis ska man kunna skicka medelande till andra teams
+#gör en egen start sida för admin. Det ka finnas se teams se medelemar och skicka medelande till teams, skapa teams och kanske se allas todo listor.
+###############################################################################
+### ska man bara kunna skicka medelande till andra teams eller ska man kunna skicka medelande till andra medlemar privat?
+### ska en admin kunna gå in i en medlems todo lista och se vad den har gjort och inte gjort?
+### ska jag ha kvar att man kan se vilka teams man är med i?
+
+
+
 
 RT = Flask(__name__)
 RT.secret_key = 'en_väldigt_hemlig_nyckel'
