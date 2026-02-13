@@ -5,6 +5,7 @@ from functools import wraps
 #fixa startsidan 
 #fixa så man kan se vilka teams man är inne i 
 # fixa todo lista en egen sida 
+#gör så att man kan vlja team istället för att skriva in email
 
 RT = Flask(__name__)
 RT.secret_key = 'en_väldigt_hemlig_nyckel'
@@ -95,7 +96,10 @@ def index():
 @login_required
 @admin_required
 def admin_tool():
-    return render_template('admin.html')
+    # Nu hämtar vi alla team oavsett vad som finns i sessionen
+    temas = app.hämta_alla_teams() 
+    return render_template('admin.html', teams=temas)
+    
 
 @RT.route('/handle_admin', methods=['POST'])
 @login_required

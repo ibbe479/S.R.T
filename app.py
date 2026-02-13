@@ -104,3 +104,13 @@ def hämta_nyheter_för_användare(email):
     except Exception as e:
         print("Fel vid hämtning:", e)
         return []
+    
+def hämta_alla_teams(): # Ta bort t_code här
+    """Hämtar alla team från Supabase."""
+    try:
+        # Ta bort .eq() helt för att få alla rader
+        teams = supabase.table("teams").select("*").execute()
+        return teams.data
+    except Exception as e:
+        print("Fel vid hämtning av teams:", e)
+        return []
