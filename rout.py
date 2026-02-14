@@ -2,9 +2,20 @@ from flask import Flask, render_template, request, redirect, url_for, session, f
 import app
 from functools import wraps
 
-#fixa startsidan 
+#fixa om man är inlogad och inne i start sidan att man kan se den valiga hedern och inte den för inloggning och registrering och om man är inne i index ska man kunna in i startsidan 
 #fixa så man kan se vilka teams man är inne i 
-# fixa todo lista en egen sida 
+#fixa todo lista en egen sida 
+#dixa så den man kan välja temms i admin sidan blir bättre 
+#fixa flash meddelanden i alla sidor
+#istället för notis ska man kunna skicka medelande till andra teams
+#gör en egen start sida för admin. Det ka finnas se teams se medelemar och skicka medelande till teams, skapa teams och kanske se allas todo listor.
+###############################################################################
+### ska man bara kunna skicka medelande till andra teams eller ska man kunna skicka medelande till andra medlemar privat?
+### ska en admin kunna gå in i en medlems todo lista och se vad den har gjort och inte gjort?
+### ska jag ha kvar att man kan se vilka teams man är med i?
+
+
+
 
 RT = Flask(__name__)
 RT.secret_key = 'en_väldigt_hemlig_nyckel'
@@ -95,7 +106,10 @@ def index():
 @login_required
 @admin_required
 def admin_tool():
-    return render_template('admin.html')
+    # Nu hämtar vi alla team oavsett vad som finns i sessionen
+    temas = app.hämta_alla_teams() 
+    return render_template('admin.html', teams=temas)
+    
 
 @RT.route('/handle_admin', methods=['POST'])
 @login_required
