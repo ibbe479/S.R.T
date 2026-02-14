@@ -2,12 +2,11 @@ from flask import Flask, render_template, request, redirect, url_for, session, f
 import app
 from functools import wraps
 
-#fixa startsidan 
+#fixa om man är inlogad och inne i start sidan att man kan se den valiga hedern och inte den för inloggning och registrering och om man är inne i index ska man kunna in i startsidan 
 #fixa så man kan se vilka teams man är inne i 
 #fixa todo lista en egen sida 
 #dixa så den man kan välja temms i admin sidan blir bättre 
 #fixa flash meddelanden i alla sidor
-#fixa om man är inlogad och inne i start sidan att man kan se den valiga hedern och inte den för inloggning och registrering
 #istället för notis ska man kunna skicka medelande till andra teams
 #gör en egen start sida för admin. Det ka finnas se teams se medelemar och skicka medelande till teams, skapa teams och kanske se allas todo listor.
 ###############################################################################

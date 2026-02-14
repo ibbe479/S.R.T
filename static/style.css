@@ -3,23 +3,29 @@ body{
 }
 
 #header{
-    background-color: rgb(197, 248, 248);
+    background-color: rgba(0, 0, 0);
     position: sticky;
     top: 0;
+    z-index: 1000;
 }
 header{
     position: sticky;
     top: 0;
+    z-index: 1000;
 }
 
 #header .navbar-brand{
     font-weight: bold;
     font-size: 30px;
+    color: white;
+
+    
 }
 
 #header .nav-link{
     font-size: 20px;
     margin-left: 20px;
+    color: white;
 }
 
 #a_admin_tool {
@@ -27,5 +33,6 @@ header{
     font-weight: bold;
     text-decoration: none;
     margin-left: auto;
-    
+    color: white;
 }
+
