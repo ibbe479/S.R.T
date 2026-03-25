@@ -59,62 +59,88 @@
 
     <div id="cont_1">
       <div class="skapa_t_container">
-          <div class="t-card">
-              <h2>Skapa ett nytt team </h2>
+        <div class="t-card">
+          <h2>Skapa ett nytt team </h2>
+          <form action="/handle_admin" method="post">
+            <div class="input-group">
+              <label for="spec_kod">Vad ska teamt heta</label>
+              <input type="text" id="spec_kod" name="spec_kod" placeholder="Skriv in namnet här" required>
 
-              <form action="/handle_admin" method="post">
-                  <div class="input-group">
-                      <label for="spec_kod">Vad ska teamt heta</label>
-                      <input type="text" id="spec_kod" name="spec_kod" placeholder="Skriv in namnet här" required>
-
-                      <label for="vem_i_teamet">Vem ska delta i det teamet</label>
-                      <input type="text" id="vem_i_teamet" name="vem_i_teamet" placeholder="skriv in eposten på den som ska vara med" required>
-                  </div>
-                  
-                  <button type="submit" class="login-button">Skapa team</button>
-              </form>
-          </div>
+              <label>Vem ska delta i teamet?</label>
+              <div class="dropdown w-full">
+                <div tabindex="0" role="button" class="btn m-1 w-full justify-between after:hidden before:hidden">
+                  Välj medlemmar
+                </div>
+                          
+                <ul tabindex="0" class="dropdown-content menu bg-base-100 rounded-box z-[1] w-64 p-2 shadow-sm max-h-60 overflow-y-auto">
+                  {% if medlemmar %}
+                    {% for medlem in medlemmar %}
+                    <li class="p-0">
+                    <label class="custom-selector">
+                    <input type="checkbox" name="vem_i_teamet" value="{{ medlem.email }}" class="hidden-checkbox">
+                    <div class="full-width-label">
+                      {{ medlem.email }}
+                    </div>
+                    </label>
+                      </li>
+                        {% endfor %}
+                      {% endif %}
+                </ul>
+              </div>
+            </div>
+                    
+              <button type="submit" class="login-button">Skapa team</button>
+          </form>
+        </div>
       </div>
     </div>
 
     <div id="cont_2">
-        <div class="nyheter-container">
-          <div class="nyheter_kortet">
-              <h2>Skriv ett medlenade till alla anstälda</h2>
+      <div class="nyheter-container">
+        <div class="nyheter_kortet">
+          <h2>Skriv ett medlenade till alla anstälda</h2>
 
-              <form action="/nyheter" method="post">
-                  <div class="input-group">
-                      <label for="titel">Titel</label>
-                      <input type="text" id="titel" name="titel" placeholder="Skriv titeln" required>
+          <form action="/nyheter" method="post">
+            <div class="input-group">
+              <label for="titel">Titel</label>
+              <input type="text" id="titel" name="titel" placeholder="Skriv titeln" required>
 
-                      <label for="message">Meddelande</label>
-                      <input type="text" id="message" name="message" placeholder="Skriv meddelandet här" required>
+              <label for="message">Meddelande</label>
+              <input type="text" id="message" name="message" placeholder="Skriv meddelandet här" required>
 
-                      <label for="till_vem">Till vilket team vill du skicka medelandet</label>
-                      <div class="dropdown">
-                        <div tabindex="0" role="button" class="btn m-1">Välj team</div>
-                          <ul tabindex="-1" class="dropdown-content menu bg-base-100 rounded-box z-1 w-52 p-2 shadow-sm">
-                            {% if teams %}
-                              {% for team in teams %}
-                                <li><a>{{ team.id }}</a></li> {% endfor %}
-                            {% else %}
-                              <li><a>Inga team tillgängliga</a></li>
-                            {% endif %}
-                          </ul>
-                      </div>
-                      
+              <label for="till_vem">Till vilket team vill du skicka meddelandet</label>
+              <div class="dropdown w-full">
+                <div tabindex="0" role="button" class="btn m-1 w-full justify-between after:hidden before:hidden">
+                  Välj team
+                </div>
+                        
+                <ul tabindex="0" class="dropdown-content menu bg-base-100 rounded-box z-[1] w-64 p-2 shadow-sm max-h-60 overflow-y-auto">
+                  {% if teams %}
+                    {% for team in teams %}
+                      <li class="p-0">
+                        <label class="custom-selector">
+                          <input type="checkbox" name="till_vem" value="{{ team.id }}" class="hidden-checkbox">
+                          <div class="full-width-label">
+                            {{ team.id }}
+                          </div>
+                        </label>
+                      </li>
+                          {% endfor %}
+                        {% endif %}
+                </ul>
+              </div>                   
                       <!--kan vara ngt extra att lägga till i framtiden 
                       <label for="hur_länge">Hur länge ska medelandet visas</label>
                       <input type="text" id="hur_länge" name="hur_länge" placeholder="Skriv in antal dagar här" required>
                       -->
 
                   
-                    </div>
-                <button type="submit" class="login-button">Publicera nyhet</button>
-              </form>
-          </div>
+            </div>
+            <button type="submit" class="login-button">Publicera nyhet</button>
+          </form>
         </div>
-    </div>
+      </div>
+    </d´´iv>
   </main>
 
    <footer class="footer sm:footer-horizontal bg-neutral text-neutral-content items-center p-4">

@@ -114,3 +114,12 @@ def hämta_alla_teams(): # Ta bort t_code här
     except Exception as e:
         print("Fel vid hämtning av teams:", e)
         return []
+
+def hämta_alla_medlemmar():
+    """Hämtar alla användare från Supabase."""
+    try:
+        medlemmar = supabase.table("Users").select("*").execute()
+        return medlemmar.data
+    except Exception as e:
+        print("Fel vid hämtning av medlemmar:", e)
+        return []

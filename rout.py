@@ -2,12 +2,10 @@ from flask import Flask, render_template, request, redirect, url_for, session, f
 import app
 from functools import wraps
 
-#fixa om man är inlogad och inne i start sidan att man kan se den valiga hedern och inte den för inloggning och registrering och om man är inne i index ska man kunna in i startsidan 
 #fixa så man kan se vilka teams man är inne i 
 #fixa todo lista en egen sida 
-#dixa så den man kan välja temms i admin sidan blir bättre 
 #fixa flash meddelanden i alla sidor
-#istället för notis ska man kunna skicka medelande till andra teams
+#istället för notis gör en next shift så kan man ha sina pass när man jobbar
 #gör en egen start sida för admin. Det ka finnas se teams se medelemar och skicka medelande till teams, skapa teams och kanske se allas todo listor.
 ###############################################################################
 ### ska man bara kunna skicka medelande till andra teams eller ska man kunna skicka medelande till andra medlemar privat?
@@ -108,7 +106,8 @@ def index():
 def admin_tool():
     # Nu hämtar vi alla team oavsett vad som finns i sessionen
     temas = app.hämta_alla_teams() 
-    return render_template('admin.html', teams=temas)
+    medlemmar = app.hämta_alla_medlemmar()
+    return render_template('admin.html', teams=temas , medlemmar=medlemmar)
     
 
 @RT.route('/handle_admin', methods=['POST'])
@@ -118,7 +117,9 @@ def handle_admin():
    
     try:
         t_code = request.form.get('spec_kod')    
-        emails = request.form.get('vem_i_teamet') 
+        emails = request.form.getlist('vem_i_teamet') 
+
+        emails = ",".join(emails)
         
         result = app.skapa_team( t_code, emails.split(","))
 
@@ -138,7 +139,9 @@ def nyheter():
     try:
         title = request.form.get('titel')
         innehåll = request.form.get('message')
-        till=request.form.get('till_vem')
+        till=request.form.getlist('till_vem')
+
+        till = ",".join(till)
 
         text = app.skapa_nyhet(title, innehåll, till)
         if text is True:
