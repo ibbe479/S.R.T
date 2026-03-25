@@ -108,7 +108,8 @@ def index():
 def admin_tool():
     # Nu hämtar vi alla team oavsett vad som finns i sessionen
     temas = app.hämta_alla_teams() 
-    return render_template('admin.html', teams=temas)
+    medlemmar = app.hämta_alla_medlemmar()
+    return render_template('admin.html', teams=temas , medlemmar=medlemmar)
     
 
 @RT.route('/handle_admin', methods=['POST'])
@@ -118,7 +119,9 @@ def handle_admin():
    
     try:
         t_code = request.form.get('spec_kod')    
-        emails = request.form.get('vem_i_teamet') 
+        emails = request.form.getlist('vem_i_teamet') 
+
+        emails = ",".join(emails)
         
         result = app.skapa_team( t_code, emails.split(","))
 
@@ -138,7 +141,9 @@ def nyheter():
     try:
         title = request.form.get('titel')
         innehåll = request.form.get('message')
-        till=request.form.get('till_vem')
+        till=request.form.getlist('till_vem')
+
+        till = ",".join(till)
 
         text = app.skapa_nyhet(title, innehåll, till)
         if text is True:
