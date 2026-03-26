@@ -89,26 +89,22 @@ def skapa_nyhet(title, innehåll,till):
 def hämta_nyheter_för_användare(email):
     """Hämtar nyheter för de team som den inloggade användaren tillhör."""
     try:
-        # 1. Kolla vilka team användaren tillhör
         mina_team = supabase.table("team_mebbers").select("team_code").eq("user_email", email).execute()
         
         if not mina_team.data:
             return [] 
 
-        # Skapa en lista med team-namnen: ['Team1', 'Team2']
         team_list = [rad['team_code'] for rad in mina_team.data]
 
-        # 2. Hämta nyheter som är riktade till dessa team
-        nyheter = supabase.table("nyheter").select("*").in_("till_vem", team_list).execute()
+        nyheter = supabase.table("nyheter").select("*").in_("till_vem", team_list).order("created_at", desc=True).execute()
         return nyheter.data
     except Exception as e:
         print("Fel vid hämtning:", e)
         return []
     
-def hämta_alla_teams(): # Ta bort t_code här
+def hämta_alla_teams(): 
     """Hämtar alla team från Supabase."""
     try:
-        # Ta bort .eq() helt för att få alla rader
         teams = supabase.table("teams").select("*").execute()
         return teams.data
     except Exception as e:

@@ -53,7 +53,8 @@
         <h5 class="card-title">News</h5>
           {% if nyheter %}
               {% for nyhet in nyheter %}
-                <div class="news-item" style="border-bottom: 1px solid #eee; margin-bottom: 10px; padding-bottom: 5px;">
+                <div class="news-item" style="border-bottom: 1px solid #eee; margin-bottom: 20px; padding-bottom: 5px;">
+                  <h6>medelande till team {{nyhet.till_vem}}</h6>
                   <h6><strong>{{ nyhet.titel }}</strong></h6>
                   <p class="card-text">{{ nyhet.innehåll }}</p>
                 </div>

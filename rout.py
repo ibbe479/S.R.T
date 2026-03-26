@@ -2,7 +2,6 @@ from flask import Flask, render_template, request, redirect, url_for, session, f
 import app
 from functools import wraps
 
-#fixa så man kan se vilka teams man är inne i 
 #fixa todo lista en egen sida 
 #fixa flash meddelanden i alla sidor
 #istället för notis gör en next shift så kan man ha sina pass när man jobbar
