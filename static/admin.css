@@ -75,20 +75,19 @@ input {
     color: red;
 }
 
-
-/* Gör labeln till en behållare som täcker hela raden */
+.btn{
+background-color: rgb(123 240 240);
+}
 .custom-selector {
     display: block;
     width: 100%;
     cursor: pointer;
 }
 
-/* Göm den faktiska lilla rutan helt */
 .hidden-checkbox {
     display: none;
 }
 
-/* Styla den div som innehåller namnet */
 .full-width-label {
     padding: 8px 12px;
     border-radius: 6px;
@@ -97,18 +96,15 @@ input {
     display: block;
 }
 
-/* "Checkbox Hack": När den gömda checkboxen är markerad, ändra på diven efter den */
 .hidden-checkbox:checked + .full-width-label {
-    background-color: #2563eb; /* En fin blå färg (blue-600) */
+    background-color: #2563eb; 
     color: white;
 }
 
-/* Hover-effekt så man ser vad man håller på att klicka på */
 .full-width-label:hover {
     background-color: #f3f4f6;
 }
 
-/* Om den redan är blå ska hover inte förstöra färgen */
 .hidden-checkbox:checked + .full-width-label:hover {
-    background-color: #1d4ed8; /* Lite mörkare blå vid hover när vald */
+    background-color: #1d4ed8; 
 }

@@ -2,7 +2,6 @@ from flask import Flask, render_template, request, redirect, url_for, session, f
 import app
 from functools import wraps
 
-#fixa så man kan se vilka teams man är inne i 
 #fixa todo lista en egen sida 
 #fixa flash meddelanden i alla sidor
 #istället för notis gör en next shift så kan man ha sina pass när man jobbar
@@ -97,8 +96,9 @@ def index():
     user_email = session.get('user_email')
 
     nyheter = app.hämta_nyheter_för_användare(user_email) 
+    teams = app.vilket_team_är_användaren_i(user_email)
 
-    return render_template('index.html', nyheter=nyheter)
+    return render_template('index.html', nyheter=nyheter, teams=teams) 
 
 @RT.route('/admin')
 @login_required

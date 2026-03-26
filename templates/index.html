@@ -53,7 +53,8 @@
         <h5 class="card-title">News</h5>
           {% if nyheter %}
               {% for nyhet in nyheter %}
-                <div class="news-item" style="border-bottom: 1px solid #eee; margin-bottom: 10px; padding-bottom: 5px;">
+                <div class="news-item" style="border-bottom: 1px solid #eee; margin-bottom: 20px; padding-bottom: 5px;">
+                  <h6>medelande till team {{nyhet.till_vem}}</h6>
                   <h6><strong>{{ nyhet.titel }}</strong></h6>
                   <p class="card-text">{{ nyhet.innehåll }}</p>
                 </div>
@@ -67,36 +68,51 @@
       <div class="card" >
         <div class="card-body">
         <h5 class="card-title">To do</h5>
-        <h6 class="card-subtitle mb-2 text-body-secondary">Card subtitle</h6>
+        <h6 class="card-subtitle mb-2 text-body-secondary">Coming soon</h6>
 
         <!--ska visa en typ ev en chekbox på alla dina to do grejer från to do sidan-->
-        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card’s content.</p>
+        <p class="card-text">Detta har inte implemeteratas än</p>
 
         <p>om du vill gå till din TO dO list tryck <a href="#" class="card-link">här</a></p>
         </div>
       </div>
 
 
-      <div class="card" >
+      <div class="card">
         <div class="card-body">
-        <h5 class="card-title">Team mebers</h5>
-        <h6 class="card-subtitle mb-2 text-body-secondary">Du jobbar med</h6>
-        <!--ska hämta från databasen alla team medlemmar som är kopplade till dig och visa dem här-->
-        <p class="card-text">Ibbe abed gazze mus momme grabbar</p>
-        <!--och varje namn ska vara en länk till deras profil sida om möligt-->
-        <a href="#" class="card-link">Card link</a>
-        <a href="#" class="card-link">Another link</a>
+          <h5 class="card-title">Team members</h5>
+          
+          {% if teams %}
+            {% for team_namn, medlemmar in teams|groupby('team_code') %}
+              <div class="team-section mb-3">
+
+                <h6 class="card-subtitle mb-2 text-body-secondary">
+                  Team: <strong style="color: black;">{{ team_namn }}</strong>
+                </h6>
+
+                <ul>
+                  {% for medlem in medlemmar %}
+                    {% if medlem.user_email != session.get('user_email') %}
+                      <li> * {{ medlem.user_email }}</li>
+                    {% endif %}
+                  {% endfor %}
+                </ul>
+
+              </div>
+            {% endfor %}
+
+          {% else %}
+            <p class="card-text">Du är inte kopplad till något team just nu.</p>
+          {% endif %}
         </div>
       </div>
 
       <div class="card" >
         <!--vet inte än vad som ska finnas gär -->
         <div class="card-body">
-        <h5 class="card-title">Nots</h5>
-        <h6 class="card-subtitle mb-2 text-body-secondary">Card subtitle</h6>
-        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card’s content.</p>
-        <a href="#" class="card-link">Card link</a>
-        <a href="#" class="card-link">Another link</a>
+          <h5 class="card-title">Next shift</h5>
+          <h6 class="card-subtitle mb-2 text-body-secondary">Ditt nästa pass</h6>
+          <p class="card-text">Här kommer ditt nästa imbokade pass att visas</p>
         </div>
       </div>
 
