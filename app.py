@@ -116,10 +116,28 @@ def hämta_alla_teams(): # Ta bort t_code här
         return []
 
 def hämta_alla_medlemmar():
+
     """Hämtar alla användare från Supabase."""
     try:
         medlemmar = supabase.table("Users").select("*").execute()
         return medlemmar.data
     except Exception as e:
         print("Fel vid hämtning av medlemmar:", e)
+        return []
+
+def vilket_team_är_användaren_i(email):
+    """Hämtar alla medlemmar som ingår i samma team som användaren."""
+    try:
+        mina_team_resp = supabase.table("team_mebbers").select("team_code").eq("user_email", email).execute()
+        
+        if not mina_team_resp.data:
+            return []
+
+        team_koder = [rad['team_code'] for rad in mina_team_resp.data]
+
+        alla_medlemmar = supabase.table("team_mebbers").select("user_email", "team_code").in_("team_code", team_koder).execute()
+        
+        return alla_medlemmar.data
+    except Exception as e:
+        print("Fel vid hämtning av teammedlemmar:", e)
         return []

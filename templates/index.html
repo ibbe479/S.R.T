@@ -77,15 +77,32 @@
       </div>
 
 
-      <div class="card" >
+      <div class="card">
         <div class="card-body">
-        <h5 class="card-title">Team mebers</h5>
-        <h6 class="card-subtitle mb-2 text-body-secondary">Du jobbar med</h6>
-        <!--ska hämta från databasen alla team medlemmar som är kopplade till dig och visa dem här-->
-        <p class="card-text">Ibbe abed gazze mus momme grabbar</p>
-        <!--och varje namn ska vara en länk till deras profil sida om möligt-->
-        <a href="#" class="card-link">Card link</a>
-        <a href="#" class="card-link">Another link</a>
+          <h5 class="card-title">Team members</h5>
+          
+          {% if teams %}
+            {% for team_namn, medlemmar in teams|groupby('team_code') %}
+              <div class="team-section mb-3">
+
+                <h6 class="card-subtitle mb-2 text-body-secondary">
+                  Team: <strong style="color: black;">{{ team_namn }}</strong>
+                </h6>
+
+                <ul>
+                  {% for medlem in medlemmar %}
+                    {% if medlem.user_email != session.get('user_email') %}
+                      <li> * {{ medlem.user_email }}</li>
+                    {% endif %}
+                  {% endfor %}
+                </ul>
+
+              </div>
+            {% endfor %}
+
+          {% else %}
+            <p class="card-text">Du är inte kopplad till något team just nu.</p>
+          {% endif %}
         </div>
       </div>
 

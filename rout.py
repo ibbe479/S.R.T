@@ -97,8 +97,9 @@ def index():
     user_email = session.get('user_email')
 
     nyheter = app.hämta_nyheter_för_användare(user_email) 
+    teams = app.vilket_team_är_användaren_i(user_email)
 
-    return render_template('index.html', nyheter=nyheter)
+    return render_template('index.html', nyheter=nyheter, teams=teams) 
 
 @RT.route('/admin')
 @login_required
