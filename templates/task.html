@@ -1,21 +1,24 @@
-<!DOCTYPE html>
-<html lang="sv">
+<!--admin only-->
+<!doctype html>
+<html lang="sv">    
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
-    <link rel="stylesheet" href="/static/admin.css">
+    <link rel="stylesheet" href="/static/style.css">
+    <link rel="stylesheet" href="/static/loga_in.css">
     <link rel="stylesheet" href="/static/style.css">
     <link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet" type="text/css" />
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-    <title>Start sida</title>
 
+</head>
 
 <body>
-   <header>
+     <header>
     <nav class="navbar navbar-expand-lg "id="header">
       <div class="container-fluid">
-        <a class="navbar-brand" href="index">STR</a>
+        <a class="navbar-brand" href="/">STR</a>
 
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
@@ -23,10 +26,7 @@
         
         <div class="collapse navbar-collapse" id="navbarText">
           <ul class="navbar-nav">
-            <li class="nav-item">
-              <a class="nav-link" href="todo">TO DO</a>
-            </li>
-
+           
             <li class="nav-item">
               {% if session.get('logged_in') %}
                 <a class="nav-link" href="/logout">LOGGA UT</a>
@@ -35,115 +35,45 @@
               {% endif %}
             </li>
           </ul>
-
-          {% if session.get('is_admin') %}
-            <a href="admin" id="a_admin_tool">Admin tool</a>
-          {% endif %}
+          
         </div>
       </div>
     </nav>
   </header>
 
-  <main>
-    <div class="alert">
-            {% with messages = get_flashed_messages(with_categories=true) %}
-              {% if messages %}
-                {% for category, message in messages %}
-                  <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
-                    {{ message }}
-                  </div>
-                {% endfor %}
-              {% endif %}
-            {% endwith %}
-      </div>
+    <div class="login-container">
+        <div class="login-card">
+            <h2 id="h2_startsidan">Lägg till en task</h2>
 
-    <div id="cont_1">
-      <div class="skapa_t_container">
-        <div class="t-card">
-          <h2>Skapa ett nytt team </h2>
-          <form action="/handle_admin" method="post">
-            <div class="input-group">
-              <label for="spec_kod">Vad ska teamt heta</label>
-              <input type="text" id="spec_kod" name="spec_kod" placeholder="Skriv in namnet här" required>
+            <form action="/ny_task" method="post">
+                
 
-              <label>Vem ska delta i teamet?</label>
-              <div class="dropdown w-full">
-                <div tabindex="0" role="button" class="btn m-1 w-full justify-between after:hidden before:hidden">
-                  Välj medlemmar
+                <div class="group">
+                    <input required="" type="text" name="task" class="input">
+                    <span class="highlight"></span>
+                    <span class="bar"></span>
+                    <label>Task</label>
                 </div>
-                          
-                <ul tabindex="0" class="dropdown-content menu bg-base-100 rounded-box z-[1] w-64 p-2 shadow-sm max-h-60 overflow-y-auto">
-                  {% if medlemmar %}
-                    {% for medlem in medlemmar %}
-                    <li class="p-0">
-                    <label class="custom-selector">
-                    <input type="checkbox" name="vem_i_teamet" value="{{ medlem.email }}" class="hidden-checkbox">
-                    <div class="full-width-label">
-                      {{ medlem.email }}
-                    </div>
-                    </label>
-                      </li>
-                        {% endfor %}
-                      {% endif %}
-                </ul>
-              </div>
-            </div>
-                    
-              <button type="submit" class="login-button">Skapa team</button>
-          </form>
+                
+                <div id="dropdown_role">
+                    <select name="priority" id="välja_roll_meny" class="select select-bordered w-full max-w-xs" required>                   
+                        <option value="" disabled selected>Välj en prioritet</option>
+                        <option value="low">Low</option>
+                        <option value="high">High</option>
+                        <option value="urgent">Urgent</option>
+                    </select>
+                </div>
+
+                <button type="submit" class="login-button">Skapa Task</button>
+
+                
+    
+
+            </form>
         </div>
-      </div>
     </div>
 
-    <div id="cont_2">
-      <div class="nyheter-container">
-        <div class="nyheter_kortet">
-          <h2>Skriv ett medlenade till alla anstälda</h2>
-
-          <form action="/nyheter" method="post">
-            <div class="input-group">
-              <label for="titel">Titel</label>
-              <input type="text" id="titel" name="titel" placeholder="Skriv titeln" required>
-
-              <label for="message">Meddelande</label>
-              <input type="text" id="message" name="message" placeholder="Skriv meddelandet här" required>
-
-              <label for="till_vem">Till vilket team vill du skicka meddelandet <em>(välj endast ett team)</em></label>
-              <div class="dropdown w-full">
-                <div tabindex="0" role="button" class="btn m-1 w-full justify-between after:hidden before:hidden">
-                  Välj team 
-                </div>
-                        
-                <ul tabindex="0" class="dropdown-content menu bg-base-100 rounded-box z-[1] w-64 p-2 shadow-sm max-h-60 overflow-y-auto">
-                  {% if teams %}
-                    {% for team in teams %}
-                      <li class="p-0">
-                        <label class="custom-selector">
-                          <input type="checkbox" name="till_vem" value="{{ team.id }}" class="hidden-checkbox">
-                          <div class="full-width-label">
-                            {{ team.id }}
-                          </div>
-                        </label>
-                      </li>
-                          {% endfor %}
-                        {% endif %}
-                </ul>
-              </div>                   
-                      <!--kan vara ngt extra att lägga till i framtiden 
-                      <label for="hur_länge">Hur länge ska medelandet visas</label>
-                      <input type="text" id="hur_länge" name="hur_länge" placeholder="Skriv in antal dagar här" required>
-                      -->
-
-                  
-            </div>
-            <button type="submit" class="login-button">Publicera nyhet</button>
-          </form>
-        </div>
-      </div>
-    </d´´iv>
-  </main>
-
-   <footer class="footer sm:footer-horizontal bg-neutral text-neutral-content items-center p-4">
+    <footer class="footer sm:footer-horizontal bg-neutral text-neutral-content items-center p-4">
       <aside class="grid-flow-col items-center">
         <svg
           width="36"
@@ -183,6 +113,6 @@
     </footer>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script> 
+
 </body>
-    
 </html>
