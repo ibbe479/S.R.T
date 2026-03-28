@@ -47,7 +47,7 @@ main{
     margin-top: 10px;
 }
 
-aside{
+article{
     display: flex;
     margin: 5% 20% 0 ;
     align-items: center;
@@ -95,3 +95,28 @@ aside{
 #välja_roll_meny:invalid {
     color: #aaa;
 }
+
+@media (max-width: 768px){
+    article p{
+        display: none;
+    }
+    article{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 20%;
+    }
+
+    main{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 5%;
+    }
+    .card{
+        width: 350px;
+        
+    }
+}
+
