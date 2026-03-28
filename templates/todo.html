@@ -48,44 +48,98 @@
   </header>
 
   
-    <h1>To Do</h1>
-    <p>här kan du lägga till och hantera dina uppgifter.</p>
-    för att  lägga till en uppgift klicka <a href="task">här</a>
+    
+ <aside>
+     <div>
+      <h1>To Do</h1>
+   
+      <p>här kan du lägga till och hantera dina uppgifter.</p>
+      <p>llorim rjfrjfr frjijfr rfirjfrjif fjirjfjfrr jfirjf</p>
+      <p>fjrimcirjficjmrijcmic cmr c cmr cmcicmc mc cmcm</p>
+      <p>cnur ufv curfnvu frvnu rfnvrufv v rv v v </p>
+    </div>
+
+
+  <div class="login-container">
+        <div class="login-card">
+          <h2 id="h2_startsidan">Lägg till en task</h2>
+          <!--lägg till flash här-->
+
+          <form action="/ny_task" method="post">                
+            <div class="group">
+              <input required="" type="text" name="task" class="input">
+              <span class="highlight"></span>
+              <span class="bar"></span>
+              <label>Task</label>
+            </div>
+                
+            <div id="dropdown_role">
+              <select name="priority" id="välja_roll_meny" class="select select-bordered w-full max-w-xs" required>                   
+                <option value="" disabled selected>Välj en prioritet</option>
+                <option value="low">Low</option>
+                <option value="high">High</option>
+                <option value="urgent">Urgent</option>
+              </select>
+            </div>
+
+            <button type="submit" class="login-button">Skapa Task</button>
+          </form>
+        </div>
+    </div>
+</aside>
 
 <main>
     <div class="card" >
         <div class="card-body">
             <h5 class="card-title">Low priority</h5>
-            <h6 class="card-subtitle mb-2 text-body-secondary">Coming soon</h6>
-
-        <!--ska visa en typ ev en chekbox på alla dina to do grejer från to do sidan-->
-            <p class="card-text">Detta har inte implemeteratas än</p>
-
-            <p>om du vill gå till din TO dO list tryck <a href="#" class="card-link">här</a></p>
+            {%if task %}
+              {% for upg in task %}
+                {%if upg.priority == "low"%}
+                  <div class="news-item" style="border-bottom: 3px solid #eee; margin-bottom: 10px; padding-bottom: 5px; background-color: #f9f9f9; border-radius: 5px; padding: 10px;">
+                    <p>{{upg.task}}</p>
+                  </div>
+                {% endif %}
+              {% endfor %}
+            {%else%}
+              <p>Inga uppgifter för dig just nu.</p>
+            {% endif %}
+            <!--flash medelendae ska visas här-->
         </div>
     </div>
 
     <div class="card" >
         <div class="card-body">
             <h5 class="card-title">High priority</h5>
-            <h6 class="card-subtitle mb-2 text-body-secondary">Coming soon</h6>
-
-        <!--ska visa en typ ev en chekbox på alla dina to do grejer från to do sidan-->
-            <p class="card-text">Detta har inte implemeteratas än</p>
-
-            <p>om du vill gå till din TO dO list tryck <a href="#" class="card-link">här</a></p>
+            {%if task %}
+              {% for upg in task %}
+                {%if upg.priority == "high"%}
+                  <div class="news-item" style="border-bottom: 3px solid #eee; margin-bottom: 10px; padding-bottom: 5px; background-color: #f9f9f9; border-radius: 5px; padding: 10px;">
+                    <p>{{upg.task}}</p>
+                  </div>
+                {% endif %}
+              {% endfor %}
+                {%else%}
+                  <p>Inga uppgifter för dig just nu.</p>
+                {% endif %}
+            <!--flash medelendae ska visas här-->
         </div>
     </div>
 
     <div class="card" >
         <div class="card-body">
             <h5 class="card-title">Urgent priority</h5>
-            <h6 class="card-subtitle mb-2 text-body-secondary">Coming soon</h6>
-
-        <!--ska visa en typ ev en chekbox på alla dina to do grejer från to do sidan-->
-            <p class="card-text">Detta har inte implemeteratas än</p>
-
-            <p>om du vill gå till din TO dO list tryck <a href="#" class="card-link">här</a></p>
+            {%if task %}
+              {% for upg in task %}
+                {%if upg.priority == "urgent"%}
+                  <div class="news-item" style="border-bottom: 3px solid #eee; margin-bottom: 10px; padding-bottom: 5px; background-color: #f9f9f9; border-radius: 5px; padding: 10px;">
+                    <p>{{upg.task}}</p>
+                  </div>
+                {% endif %}
+              {% endfor %}
+            {%else%}
+              <p>Inga uppgifter för dig just nu.</p>
+            {% endif %}
+            <!--flash medelendae ska visas här-->
         </div>
     </div>
 

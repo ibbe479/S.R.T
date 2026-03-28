@@ -109,7 +109,6 @@ def index():
 @login_required
 @admin_required
 def admin_tool():
-    # Nu hämtar vi alla team oavsett vad som finns i sessionen
     temas = app.hämta_alla_teams() 
     medlemmar = app.hämta_alla_medlemmar()
     return render_template('admin.html', teams=temas , medlemmar=medlemmar)
@@ -161,28 +160,25 @@ def nyheter():
 @RT.route('/todo')
 @login_required
 def todo():
-    return render_template('todo.html')
+    email = session.get('user_email')
+    task = app.hämta_todo_items(email)
+    return render_template('todo.html', email=email, task=task)
 
-@RT.route('/task')
-@login_required
-def task():
-    return render_template('task.html')
 
 @RT.route('/ny_task', methods=['POST'])
 @login_required
 def ny_task():
     try:
+        user_email = session.get('user_email')
         task = request.form.get('task')
-        description = request.form.get('description')
         priority = request.form.get('priority')
 
-        # Här skulle du normalt spara tasken i databasen
-        print(f"Ny task: {task}, Beskrivning: {description}, Prioritet: {priority}")
-
-        flash("Tasken har skapats.", 'success')
+        result = app.skapa_todo_item(user_email, task, priority )
+        if result != True:
+            flash("Ett fel uppstod när Tasken skulle läggas till.", 'error')
         return redirect(url_for('todo'))
     except Exception as e:
-        print("Fel vid skapande av task:", e)
+        print("Fel vid tillägg av task:", e)
         return "Något gick fel", 400
     
 if __name__ == '__main__':
