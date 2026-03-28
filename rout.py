@@ -3,6 +3,11 @@ import app
 from functools import wraps
 
 #fixa todo lista en egen sida 
+#spara todo list i databasen 
+#fixa så man kan se de i sin sida
+#fixa ifall en är inkryssad så ska den inte visas i todo listan längre utan i en annan lista som heter gjorda uppgifter eller något liknande
+#välj en prioritet på uppgiften eller välj roll måste fixax 
+
 #fixa flash meddelanden i alla sidor
 #istället för notis gör en next shift så kan man ha sina pass när man jobbar
 #gör en egen start sida för admin. Det ka finnas se teams se medelemar och skicka medelande till teams, skapa teams och kanske se allas todo listor.
@@ -104,7 +109,6 @@ def index():
 @login_required
 @admin_required
 def admin_tool():
-    # Nu hämtar vi alla team oavsett vad som finns i sessionen
     temas = app.hämta_alla_teams() 
     medlemmar = app.hämta_alla_medlemmar()
     return render_template('admin.html', teams=temas , medlemmar=medlemmar)
@@ -153,5 +157,31 @@ def nyheter():
     except Exception as e:
         return "Något gick fel", 400
     
+@RT.route('/todo')
+@login_required
+def todo():
+    email = session.get('user_email')
+    task = app.hämta_todo_items(email)
+    return render_template('todo.html', email=email, task=task)
+
+
+@RT.route('/ny_task', methods=['POST'])
+@login_required
+def ny_task():
+    try:
+        user_email = session.get('user_email')
+        task = request.form.get('task')
+        priority = request.form.get('priority')
+
+        result = app.skapa_todo_item(user_email, task, priority )
+        if result != True:
+            flash("Ett fel uppstod när Tasken skulle läggas till.", 'error')
+        return redirect(url_for('todo'))
+    except Exception as e:
+        print("Fel vid tillägg av task:", e)
+        return "Något gick fel", 400
+    
 if __name__ == '__main__':
     RT.run(debug=True)
+
+

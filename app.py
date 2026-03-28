@@ -2,9 +2,8 @@ from supabase import create_client
 import os
 from dotenv import load_dotenv
 
-
-
-load_dotenv()  # läser .env
+base_dir = os.path.dirname(os.path.abspath(__file__))
+load_dotenv(os.path.join(base_dir, ".env"))
 
 url = os.getenv("SUPABASE_URL")
 key = os.getenv("SUPABASE_KEY")
@@ -136,4 +135,26 @@ def vilket_team_är_användaren_i(email):
         return alla_medlemmar.data
     except Exception as e:
         print("Fel vid hämtning av teammedlemmar:", e)
+        return []
+
+def skapa_todo_item(email, task, prioritet):
+    """Skapar en todo-uppgift för en användare."""
+    try:
+        supabase.table("todo").insert({
+            "user": email,
+            "task": task,
+            "priority": prioritet
+        }).execute()
+        return True
+    except Exception as e:
+        print("Fel vid skapande av todo-item:", e)
+        return False
+
+def hämta_todo_items(email):
+    """Hämtar alla todo-uppgifter för en användare."""
+    try:
+        response = supabase.table("todo").select("*").eq("user", email).order("created_at", desc=True).execute()
+        return response.data
+    except Exception as e:
+        print("Fel vid hämtning av todo-items:", e)
         return []
