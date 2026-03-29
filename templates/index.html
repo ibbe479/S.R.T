@@ -68,13 +68,35 @@
 
       <div class="card" >
         <div class="card-body">
-        <h5 class="card-title">To do</h5>
-        <h6 class="card-subtitle mb-2 text-body-secondary">Coming soon</h6>
+          <h5 class="card-title">To do</h5>
+          {% set urgent = task | selectattr("priority", "equalto", "urgent") | list %}
+          {% set high = task | selectattr("priority", "equalto", "high") | list %}
+          {% set low = task | selectattr("priority", "equalto", "low") | list %}
 
-        <!--ska visa en typ ev en chekbox på alla dina to do grejer från to do sidan-->
-        <p class="card-text">Detta har inte implemeteratas än</p>
+          {% if urgent %}
+            {% for upg in urgent %}
+              <div class="news-item" style="border-bottom: 3px solid #eee; margin-bottom: 10px; background-color: #f9f9f9; border-radius: 5px; padding: 10px;">
+                <p><strong>URGENT</strong> {{ upg.task }}</p>
+              </div>
+            {% endfor %}
 
-        <p>om du vill gå till din TO dO list tryck <a href="#" class="card-link">här</a></p>
+          {% elif high %}
+            {% for upg in high %}
+              <div class="news-item" style="border-bottom: 2px solid #eee; margin-bottom: 10px; background-color: #f9f9f9; border-radius: 5px; padding: 10px;">
+                <p><strong>HIGH</strong> {{ upg.task }}</p>
+              </div>
+            {% endfor %}
+
+          {% elif low %}
+            {% for upg in low %}
+              <div class="news-item" style="border-bottom: 1px solid #eee; margin-bottom: 10px; background-color: #f9f9f9; border-radius: 5px; padding: 10px;">
+                <p><strong>LOW</strong> {{ upg.task }}</p>
+              </div>
+            {% endfor %}
+
+          {% else %}
+              <p>Inga uppgifter för dig just nu.</p>
+          {% endif %}
         </div>
       </div>
 

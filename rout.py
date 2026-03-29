@@ -103,7 +103,10 @@ def index():
     nyheter = app.hämta_nyheter_för_användare(user_email) 
     teams = app.vilket_team_är_användaren_i(user_email)
 
-    return render_template('index.html', nyheter=nyheter, teams=teams) 
+    email = session.get('user_email')
+    task = app.hämta_todo_items(email)
+
+    return render_template('index.html', nyheter=nyheter, teams=teams, task=task, email=email) 
 
 @RT.route('/admin')
 @login_required
