@@ -2,9 +2,7 @@ from flask import Flask, render_template, request, redirect, url_for, session, f
 import app
 from functools import wraps
 
-#fixa todo lista en egen sida 
-#spara todo list i databasen 
-#fixa så man kan se de i sin sida
+
 #fixa ifall en är inkryssad så ska den inte visas i todo listan längre utan i en annan lista som heter gjorda uppgifter eller något liknande
 #välj en prioritet på uppgiften eller välj roll måste fixax 
 
@@ -183,6 +181,14 @@ def ny_task():
     except Exception as e:
         print("Fel vid tillägg av task:", e)
         return "Något gick fel", 400
+
+@RT.route('/radera_task/<task_id>', methods=['POST'])
+@login_required
+def radera_task(task_id):
+    success = app.radera_todo_item(task_id)
+    if success:
+        return {"status": "success"}, 200
+    return {"status": "error"}, 500
     
 if __name__ == '__main__':
     RT.run(debug=True)

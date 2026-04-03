@@ -158,3 +158,13 @@ def hämta_todo_items(email):
     except Exception as e:
         print("Fel vid hämtning av todo-items:", e)
         return []
+
+def radera_todo_item(task_id):
+    """Raderar en specifik todo-uppgift baserat på dess ID."""
+    try:
+        # Vi använder .eq("id", task_id) för att hitta rätt rad
+        supabase.table("todo").delete().eq("id", task_id).execute()
+        return True
+    except Exception as e:
+        print("Fel vid radering av todo-item:", e)
+        return False

@@ -93,9 +93,14 @@
         <div class="card-body">
             <h5 class="card-title">Low priority</h5>
             {% for upg in task if upg.priority == "low" %}
-                <div class="news-item" style="border-bottom: 3px solid #eee; margin-bottom: 10px; padding-bottom: 5px; background-color: #f9f9f9; border-radius: 5px; padding: 10px;">
-                    <p>{{upg.task}}</p>
-                </div>
+                <div id="task-row-{{ upg.id }}" class="news-item" style="border-bottom: 3px solid #eee; margin-bottom: 10px; padding-bottom: 5px; background-color: #f9f9f9; border-radius: 5px; padding: 10px;">
+                    <ul>
+                        <li>
+                            <input type="checkbox" onclick="startRemovalTimer('{{ upg.id }}', this)">
+                            <label>{{ upg.task }}</label>
+                        </li>
+                    </ul>
+                </div> 
             {% else %}
                 <p>Inga uppgifter för dig just nu.</p>
             {% endfor %}
@@ -103,17 +108,21 @@
         </div>
     </div>
 
-    <div class="card" >
+    <div class="card">
         <div class="card-body">
             <h5 class="card-title">High priority</h5>
             {% for upg in task if upg.priority == "high" %}
-                <div class="news-item" style="border-bottom: 3px solid #eee; margin-bottom: 10px; padding-bottom: 5px; background-color: #f9f9f9; border-radius: 5px; padding: 10px;">
-                    <p>{{upg.task}}</p>
-                </div>
+                <div id="task-row-{{ upg.id }}" class="news-item" style="border-bottom: 3px solid #eee; margin-bottom: 10px; padding-bottom: 5px; background-color: #f9f9f9; border-radius: 5px; padding: 10px;">
+                    <ul>
+                        <li>
+                            <input type="checkbox" onclick="startRemovalTimer('{{ upg.id }}', this)">
+                            <label>{{ upg.task }}</label>
+                        </li>
+                    </ul>
+                </div> 
             {% else %}
                 <p>Inga uppgifter för dig just nu.</p>
             {% endfor %}
-            
         </div>
     </div>
 
@@ -121,9 +130,14 @@
         <div class="card-body">
             <h5 class="card-title">Urgent priority</h5>
             {% for upg in task if upg.priority == "urgent" %}
-                <div class="news-item" style="border-bottom: 3px solid #eee; margin-bottom: 10px; padding-bottom: 5px; background-color: #f9f9f9; border-radius: 5px; padding: 10px;">
-                    <p>{{upg.task}}</p>
-                </div>
+                <div id="task-row-{{ upg.id }}" class="news-item" style="border-bottom: 3px solid #eee; margin-bottom: 10px; padding-bottom: 5px; background-color: #f9f9f9; border-radius: 5px; padding: 10px;">
+                    <ul>
+                        <li>
+                            <input type="checkbox" onclick="startRemovalTimer('{{ upg.id }}', this)">
+                            <label>{{ upg.task }}</label>
+                        </li>
+                    </ul>
+                </div> 
             {% else %}
                 <p>Inga uppgifter för dig just nu.</p>
             {% endfor %}
@@ -177,5 +191,5 @@
 </footer>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script> 
-</body>
+<script src="{{ url_for('static', filename='todo.js') }}"></script></body>
 </html>
