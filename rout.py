@@ -1,6 +1,10 @@
 from flask import Flask, render_template, request, redirect, url_for, session, flash
 import app
 from functools import wraps
+""" för att lägga till de senaste comiten i main skriver man 
+cd mysite
+git pull origin main
+"""
 
 
 #fixa så att man kan se vilka pass man har fått 
