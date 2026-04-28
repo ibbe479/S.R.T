@@ -72,7 +72,7 @@
                   Välj medlemmar
                 </div>
                           
-                <ul tabindex="0" class="dropdown-content menu bg-base-100 rounded-box z-[1] w-64 p-2 shadow-sm max-h-60 overflow-y-auto">
+                <ul tabindex="0" class="dropdown-content menu bg-base-100 rounded-box z-[1] w-80 p-2 shadow-sm">
                   {% if medlemmar %}
                     {% for medlem in medlemmar %}
                     <li class="p-0">
@@ -141,9 +141,51 @@
         </div>
       </div>
     </div>
-  </main>
 
-   <footer class="footer sm:footer-horizontal bg-neutral text-neutral-content items-center p-4">
+    <calendar-date class="cally bg-base-100 border border-base-300 shadow-lg rounded-box" id="calender">
+      <svg aria-label="Previous" class="fill-current size-4" slot="previous" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="currentColor" d="M15.75 19.5 8.25 12l7.5-7.5"></path></svg>
+      <svg aria-label="Next" class="fill-current size-4" slot="next" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="currentColor" d="m8.25 4.5 7.5 7.5-7.5 7.5"></path></svg>
+      <calendar-month></calendar-month>
+    </calendar-date>
+    
+
+    
+    
+  </main>
+    <fieldset id="tid" class="fieldset bg-base-200 border-base-300 rounded-box w-xs border p-4">
+      <legend class="fieldset-legend">Sätt in tiderna för passet</legend>
+      
+      <label id="v_datum" class="fieldset-legend"></label>
+      <input id="start_tid" type="time" class="input" placeholder="När ska passet starta (08:00)" />
+      
+      <label  class="fieldset-legend"></label>
+      <input  id="slut_tid"type="time" class="input" placeholder="när ska passet sluta (17:00)" />
+
+      <div class="dropdown w-full">
+          <div tabindex="0" role="button" class="btn m-1 w-full justify-between after:hidden before:hidden">
+            Vilka medlemmar ska ha det passet
+          </div>
+                          
+          <ul tabindex="0" class="dropdown-content menu bg-base-100 rounded-box z-[1] w-80 p-2 shadow-sm ">
+            {% if medlemmar %}
+              {% for medlem in medlemmar %}
+                <li class="p-0">
+                  <label class="custom-selector">
+                    <input type="checkbox" name="vem_i_teamet" value="{{ medlem.email }}" class="hidden-checkbox">
+                    <div class="full-width-label">
+                      {{ medlem.email }}
+                    </div>
+                  </label>
+                </li>
+              {% endfor %}
+            {% endif %}
+          </ul>
+        </div>
+
+      <button  id="spara" class="btn btn-neutral mt-4">Spara</button>
+    </fieldset>
+
+  <footer class="footer sm:footer-horizontal bg-neutral text-neutral-content items-center p-4">
       <aside class="grid-flow-col items-center">
         <svg
           width="36"
@@ -180,8 +222,11 @@
           </svg>
         </a>
       </nav>
-    </footer>
+  </footer>
 
+<script src="https://code.jquery.com/jquery-4.0.0.min.js" integrity="sha256-OaVG6prZf4v69dPg6PhVattBXkcOWQB62pdZ3ORyrao=" crossorigin="anonymous"></script> 
+<script src="/static/calender.js"></script>
+<script type="module" src="https://unpkg.com/cally"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script> 
 </body>
     

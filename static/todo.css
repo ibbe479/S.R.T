@@ -96,6 +96,8 @@ article{
     color: #aaa;
 }
 
+
+
 @media (max-width: 768px){
     article p{
         display: none;

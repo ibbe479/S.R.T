@@ -2,6 +2,7 @@ from supabase import create_client
 import os
 from dotenv import load_dotenv
 
+
 base_dir = os.path.dirname(os.path.abspath(__file__))
 load_dotenv(os.path.join(base_dir, ".env"))
 
@@ -158,3 +159,34 @@ def hämta_todo_items(email):
     except Exception as e:
         print("Fel vid hämtning av todo-items:", e)
         return []
+
+def radera_todo_item(task_id):
+    """Raderar en specifik todo-uppgift baserat på dess ID."""
+    try:
+        # Vi använder .eq("id", task_id) för att hitta rätt rad
+        supabase.table("todo").delete().eq("id", task_id).execute()
+        return True
+    except Exception as e:
+        print("Fel vid radering av todo-item:", e)
+        return False
+        
+def hämta_pass():
+    """Hämtar alla pass i schemat."""
+    try:
+        response = supabase.table("shifts").select("*").execute()
+        print(response.data)
+    except Exception as e:
+        print("Fel vid hämtning av pass:", e)
+        return []
+
+def spara_flera_pass(pass_lista):
+    """Sparar en lista med pass-objekt i Supabase-tabellen 'shifts'."""
+    try:
+        response = supabase.table("shifts").insert(pass_lista).execute()
+        return True
+    except Exception as e:
+        print("Fel vid sparande av flera pass i Supabase:", e)
+        return False
+
+
+

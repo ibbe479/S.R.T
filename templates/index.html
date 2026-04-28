@@ -75,23 +75,38 @@
 
           {% if urgent %}
             {% for upg in urgent %}
-              <div class="news-item" style="border-bottom: 3px solid #eee; margin-bottom: 10px; background-color: #f9f9f9; border-radius: 5px; padding: 10px;">
-                <p><strong>URGENT</strong> {{ upg.task }}</p>
-              </div>
+             <div id="task-row-{{ upg.id }}" class="news-item" style="border-bottom: 3px solid #eee; margin-bottom: 10px; padding-bottom: 5px; background-color: #f9f9f9; border-radius: 5px; padding: 10px;">
+                    <ul>
+                        <li>
+                            <input type="checkbox" onclick="startRemovalTimer('{{ upg.id }}', this)">
+                            <label>{{ upg.task }}</label>
+                        </li>
+                    </ul>
+                </div> 
             {% endfor %}
 
           {% elif high %}
             {% for upg in high %}
-              <div class="news-item" style="border-bottom: 2px solid #eee; margin-bottom: 10px; background-color: #f9f9f9; border-radius: 5px; padding: 10px;">
-                <p><strong>HIGH</strong> {{ upg.task }}</p>
-              </div>
+              <div id="task-row-{{ upg.id }}" class="news-item" style="border-bottom: 3px solid #eee; margin-bottom: 10px; padding-bottom: 5px; background-color: #f9f9f9; border-radius: 5px; padding: 10px;">
+                    <ul>
+                        <li>
+                            <input type="checkbox" onclick="startRemovalTimer('{{ upg.id }}', this)">
+                            <label>{{ upg.task }}</label>
+                        </li>
+                    </ul>
+                </div> 
             {% endfor %}
 
           {% elif low %}
             {% for upg in low %}
-              <div class="news-item" style="border-bottom: 1px solid #eee; margin-bottom: 10px; background-color: #f9f9f9; border-radius: 5px; padding: 10px;">
-                <p><strong>LOW</strong> {{ upg.task }}</p>
-              </div>
+              <div id="task-row-{{ upg.id }}" class="news-item" style="border-bottom: 3px solid #eee; margin-bottom: 10px; padding-bottom: 5px; background-color: #f9f9f9; border-radius: 5px; padding: 10px;">
+                    <ul>
+                        <li>
+                            <input type="checkbox" onclick="startRemovalTimer('{{ upg.id }}', this)">
+                            <label>{{ upg.task }}</label>
+                        </li>
+                    </ul>
+                </div> 
             {% endfor %}
 
           {% else %}
@@ -181,5 +196,6 @@
   </footer>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script> 
+<script src="{{ url_for('static', filename='todo.js') }}"></script></body>
 </body>
 </html>
