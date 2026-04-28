@@ -2,6 +2,7 @@ from supabase import create_client
 import os
 from dotenv import load_dotenv
 
+
 base_dir = os.path.dirname(os.path.abspath(__file__))
 load_dotenv(os.path.join(base_dir, ".env"))
 
@@ -191,6 +192,19 @@ def hämta_pass():
         print("Fel vid hämtning av pass:", e)
         return []
 
+def spara_kalender_datum(email, datum):
+    """Sparar det valda datumet i en tabell i Supabase."""
+    try:
+        # Vi använder den befintliga supabase-klienten
+        # Ersätt 'valda_datum' med namnet på din faktiska tabell
+        supabase.table("valda_datum").insert({
+            "user_email": email,
+            "date": datum
+        }).execute()
+        return True
+    except Exception as e:
+        print("Fel vid Supabase-insert:", e)
+        return False
 
 
 

@@ -36,6 +36,16 @@ header{
     color: white;
 }
 
+#tid{
+    display: none;
+
+}
+.is-blurred {
+    filter: blur(5px);
+    pointer-events: none;
+    opacity: 0.5;
+}
+
 @media (max-width: 768px)
 {
     .navbar-toggler{
