@@ -169,19 +169,6 @@ def radera_todo_item(task_id):
     except Exception as e:
         print("Fel vid radering av todo-item:", e)
         return False
-
-def lägg_till_pass():
-    """Lägger till en pass i schemat."""
-    try:
-        supabase.table("shifts").insert({
-            "user_id": "123@gg.com",
-            "start_shift": "2026-04-23 10:00:00",
-            "end_shift": "2026-04-23 18:00:00"
-        }).execute()
-        return True
-    except Exception as e:
-        print("Fel vid skapande av pass:", e)
-        return False
         
 def hämta_pass():
     """Hämtar alla pass i schemat."""
@@ -192,18 +179,13 @@ def hämta_pass():
         print("Fel vid hämtning av pass:", e)
         return []
 
-def spara_kalender_datum(email, datum):
-    """Sparar det valda datumet i en tabell i Supabase."""
+def spara_flera_pass(pass_lista):
+    """Sparar en lista med pass-objekt i Supabase-tabellen 'shifts'."""
     try:
-        # Vi använder den befintliga supabase-klienten
-        # Ersätt 'valda_datum' med namnet på din faktiska tabell
-        supabase.table("valda_datum").insert({
-            "user_email": email,
-            "date": datum
-        }).execute()
+        response = supabase.table("shifts").insert(pass_lista).execute()
         return True
     except Exception as e:
-        print("Fel vid Supabase-insert:", e)
+        print("Fel vid sparande av flera pass i Supabase:", e)
         return False
 
 

@@ -72,7 +72,7 @@
                   Välj medlemmar
                 </div>
                           
-                <ul tabindex="0" class="dropdown-content menu bg-base-100 rounded-box z-[1] w-64 p-2 shadow-sm max-h-60 overflow-y-auto">
+                <ul tabindex="0" class="dropdown-content menu bg-base-100 rounded-box z-[1] w-80 p-2 shadow-sm">
                   {% if medlemmar %}
                     {% for medlem in medlemmar %}
                     <li class="p-0">
@@ -152,16 +152,37 @@
     
     
   </main>
-  <fieldset id="tid" class="fieldset bg-base-200 border-base-300 rounded-box w-xs border p-4">
+    <fieldset id="tid" class="fieldset bg-base-200 border-base-300 rounded-box w-xs border p-4">
       <legend class="fieldset-legend">Sätt in tiderna för passet</legend>
       
       <label id="v_datum" class="fieldset-legend"></label>
-      <input id="start_tid" type="text" class="input" placeholder="När ska passet starta (08:00)" />
+      <input id="start_tid" type="time" class="input" placeholder="När ska passet starta (08:00)" />
+      
       <label  class="fieldset-legend"></label>
+      <input  id="slut_tid"type="time" class="input" placeholder="när ska passet sluta (17:00)" />
 
-      <input  id="slut_tid"type="text" class="input" placeholder="när ska passet sluta (17:00)" />
+      <div class="dropdown w-full">
+          <div tabindex="0" role="button" class="btn m-1 w-full justify-between after:hidden before:hidden">
+            Vilka medlemmar ska ha det passet
+          </div>
+                          
+          <ul tabindex="0" class="dropdown-content menu bg-base-100 rounded-box z-[1] w-80 p-2 shadow-sm ">
+            {% if medlemmar %}
+              {% for medlem in medlemmar %}
+                <li class="p-0">
+                  <label class="custom-selector">
+                    <input type="checkbox" name="vem_i_teamet" value="{{ medlem.email }}" class="hidden-checkbox">
+                    <div class="full-width-label">
+                      {{ medlem.email }}
+                    </div>
+                  </label>
+                </li>
+              {% endfor %}
+            {% endif %}
+          </ul>
+        </div>
 
-      <button class="btn btn-neutral mt-4">spara</button>
+      <button  id="spara" class="btn btn-neutral mt-4">Spara</button>
     </fieldset>
 
   <footer class="footer sm:footer-horizontal bg-neutral text-neutral-content items-center p-4">

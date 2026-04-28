@@ -3,11 +3,9 @@ import app
 from functools import wraps
 
 
-#fixa ifall en är inkryssad så ska den inte visas i todo listan längre utan i en annan lista som heter gjorda uppgifter eller något liknande
-#välj en prioritet på uppgiften eller välj roll måste fixax 
+#fixa så att man kan se vilka pass man har fått 
 
 #fixa flash meddelanden i alla sidor
-#istället för notis gör en next shift så kan man ha sina pass när man jobbar
 #gör en egen start sida för admin. Det ka finnas se teams se medelemar och skicka medelande till teams, skapa teams och kanske se allas todo listor.
 ###############################################################################
 ### ska man bara kunna skicka medelande till andra teams eller ska man kunna skicka medelande till andra medlemar privat?
@@ -190,7 +188,22 @@ def radera_task(task_id):
         return {"status": "success"}, 200
     return {"status": "error"}, 500
 
-    
+@RT.route('/skapa_pass', methods=['POST'])
+@login_required
+@admin_required
+def skapa_pass():
+    try:
+        pass_data = request.get_json() 
+        
+        resultat = app.spara_flera_pass(pass_data)
+        
+        if resultat:
+            return {"status": "success"}, 200
+        else:
+            return {"status": "error", "message": "Kunde inte spara i databasen"}, 500
+    except Exception as e:
+        print("Fel i skapa_pass route:", e)
+        return "Något gick fel", 400
     
 if __name__ == '__main__':
     RT.run(debug=True)
