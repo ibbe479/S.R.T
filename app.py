@@ -168,3 +168,29 @@ def radera_todo_item(task_id):
     except Exception as e:
         print("Fel vid radering av todo-item:", e)
         return False
+
+def lägg_till_pass():
+    """Lägger till en pass i schemat."""
+    try:
+        supabase.table("shifts").insert({
+            "user_id": "123@gg.com",
+            "start_shift": "2026-04-23 10:00:00",
+            "end_shift": "2026-04-23 18:00:00"
+        }).execute()
+        return True
+    except Exception as e:
+        print("Fel vid skapande av pass:", e)
+        return False
+        
+def hämta_pass():
+    """Hämtar alla pass i schemat."""
+    try:
+        response = supabase.table("shifts").select("*").execute()
+        print(response.data)
+    except Exception as e:
+        print("Fel vid hämtning av pass:", e)
+        return []
+
+
+
+
