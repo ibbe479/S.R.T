@@ -3,7 +3,8 @@ import app
 from functools import wraps
 
 
-#fixa så att man kan se vilka pass man har fått 
+#cd mysite
+# git pull origin main 
 
 #fixa flash meddelanden i alla sidor
 #gör en egen start sida för admin. Det ka finnas se teams se medelemar och skicka medelande till teams, skapa teams och kanske se allas todo listor.
