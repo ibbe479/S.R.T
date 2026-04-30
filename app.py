@@ -198,7 +198,6 @@ def spara_flera_pass(pass_lista):
         response = supabase.table("shifts").upsert(pass_lista).execute()
         return True, "Klart!"
     except Exception as e:
-        # Om något går riktigt fel (t.ex. serverfel)
         return False, str(e)
 
 
