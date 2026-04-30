@@ -1,6 +1,7 @@
 from supabase import create_client
 import os
 from dotenv import load_dotenv
+from datetime import datetime
 
 
 base_dir = os.path.dirname(os.path.abspath(__file__))
@@ -170,20 +171,30 @@ def radera_todo_item(task_id):
         print("Fel vid radering av todo-item:", e)
         return False
         
+
 def hämta_pass(email):
-    """Hämtar alla pass i schemat."""
+    """Hämtar endast framtida eller pågående pass för en användare."""
     try:
-        response = supabase.table("shifts").select("*").eq("user_email", email).execute()
-        return response.data
+        response = supabase.table("shifts").select("*").eq("user_id", email).execute()
+        alla_pass = response.data
+        
+        if not alla_pass:
+            return []
+
+        nu = datetime.now().isoformat()
+
+        framtida_pass = [p for p in alla_pass if p['end_shift'] >= nu]
+
+        framtida_pass.sort(key=lambda x: x['start_shift'])
+
+        return framtida_pass
+        
     except Exception as e:
         print("Fel vid hämtning av pass:", e)
         return []
 
 def spara_flera_pass(pass_lista):
     try:
-        # 'upsert' kollar på din Primary Key. 
-        # Om kombinationen finns -> uppdatera raden.
-        # Om kombinationen inte finns -> skapa ny rad.
         response = supabase.table("shifts").upsert(pass_lista).execute()
         return True, "Klart!"
     except Exception as e:
