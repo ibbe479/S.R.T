@@ -53,3 +53,14 @@ $("#calender").on("change", function() {
         }
     });
 });
+
+$(document).on("mousedown", function(event) {
+    if ($("#tid").is(":visible")) {
+        if (!$(event.target).closest("#tid").length && !$(event.target).closest("#calender").length) {
+            
+            $("#tid").hide();
+            $("main").removeClass("is-blurred");
+            $("#tid input[name='vem_i_teamet']").prop("checked", false);
+        }
+    }
+});
