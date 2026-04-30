@@ -102,7 +102,9 @@ def index():
     email = session.get('user_email')
     task = app.hämta_todo_items(email)
 
-    return render_template('index.html', nyheter=nyheter, teams=teams, task=task, email=email) 
+    shifts = app.hämta_pass(email)
+
+    return render_template('index.html', nyheter=nyheter, teams=teams, task=task, email=email, shifts=shifts) 
 
 @RT.route('/admin')
 @login_required

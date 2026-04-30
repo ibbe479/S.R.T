@@ -170,23 +170,25 @@ def radera_todo_item(task_id):
         print("Fel vid radering av todo-item:", e)
         return False
         
-def hämta_pass():
+def hämta_pass(email):
     """Hämtar alla pass i schemat."""
     try:
-        response = supabase.table("shifts").select("*").execute()
-        print(response.data)
+        response = supabase.table("shifts").select("*").eq("user_email", email).execute()
+        return response.data
     except Exception as e:
         print("Fel vid hämtning av pass:", e)
         return []
 
 def spara_flera_pass(pass_lista):
-    """Sparar en lista med pass-objekt i Supabase-tabellen 'shifts'."""
     try:
-        response = supabase.table("shifts").insert(pass_lista).execute()
-        return True
+        # 'upsert' kollar på din Primary Key. 
+        # Om kombinationen finns -> uppdatera raden.
+        # Om kombinationen inte finns -> skapa ny rad.
+        response = supabase.table("shifts").upsert(pass_lista).execute()
+        return True, "Klart!"
     except Exception as e:
-        print("Fel vid sparande av flera pass i Supabase:", e)
-        return False
+        # Om något går riktigt fel (t.ex. serverfel)
+        return False, str(e)
 
 
 

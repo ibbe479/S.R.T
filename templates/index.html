@@ -148,9 +148,22 @@
       <div class="card" >
         <!--vet inte än vad som ska finnas gär -->
         <div class="card-body">
-          <h5 class="card-title">Next shift</h5>
-          <h6 class="card-subtitle mb-2 text-body-secondary">Ditt nästa pass</h6>
-          <p class="card-text">Här kommer ditt nästa imbokade pass att visas</p>
+          <h3><i class="fas fa-calendar-alt"></i> Mina Arbetspass</h3>
+          <hr>
+          {% if shifts %}
+              <ul style="list-style: none; padding: 0;">
+                  {% for pass in shifts %}
+                      <li style="margin-bottom: 10px; padding: 10px; background: rgba(255,255,255,0.5); border-radius: 5px;">
+                          <strong>Datum & Tid:</strong><br>
+                          {{ pass.start_shift }} — {{ pass.end_shift }}
+                      </li>
+                  {% endfor %}
+              </ul>
+          {% else %}
+              <p>Du har inga inplanerade pass just nu.</p>
+          {% endif %}
+          
+          
         </div>
       </div>
 
